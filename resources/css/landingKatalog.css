@@ -1,0 +1,681 @@
+* {
+    box-sizing: border-box;
+}
+.landing-katalog-page {
+    width: 100%;
+    min-height: calc(100vh - 78px);
+    position: relative;
+    padding: 32px 24px 30px;
+    background: #eaf6ff;
+    font-family: "Figtree", sans-serif;
+}
+
+/* TOOLBAR */
+.landing-katalog-toolbar {
+    position: relative;
+    z-index: 5;
+    width: 74%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 175px;
+    gap: 12px;
+    margin: 0 auto -18px;
+}
+
+/* SEARCH */
+.landing-katalog-search {
+    position: relative;
+}
+
+.landing-katalog-search i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #2f9de9;
+    font-size: 20px;
+}
+
+.landing-katalog-search input {
+    width: 100%;
+    height: 42px;
+    padding: 0 16px 0 45px;
+    border: 1px solid #67b6eb;
+    border-radius: 8px;
+    outline: none;
+    background: #edf6fd;
+    color: #333333;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.landing-katalog-search input::placeholder {
+    color: #58a7e3;
+}
+
+.landing-katalog-search input:focus {
+    background: #ffffff;
+    border-color: #329ce9;
+    box-shadow: 0 0 0 3px rgba(50, 156, 233, 0.10);
+}
+
+/* FILTER */
+.landing-katalog-filter {
+    position: relative;
+}
+
+.landing-katalog-filter-select {
+    position: relative;
+    width: 100%;
+}
+
+.landing-katalog-filter-button {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px 0 14px;
+    border: 1px solid #67b6eb;
+    border-radius: 8px;
+    outline: none;
+    background: #edf6fd;
+    color: #459fe1;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.landing-katalog-filter-button i {
+    color: #3d9be0;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.landing-katalog-filter-select.open
+.landing-katalog-filter-button i {
+    transform: rotate(180deg);
+}
+
+.landing-katalog-filter-options {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    max-height: 190px;
+    display: none;
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid #67b6eb;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(46, 78, 102, 0.12);
+}
+
+.landing-katalog-filter-select.open
+.landing-katalog-filter-options {
+    display: block;
+}
+
+.landing-katalog-filter-options button {
+    width: 100%;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #4a535a;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.landing-katalog-filter-options button:hover {
+    background: #edf7fd;
+    color: #318fd2;
+}
+
+.landing-katalog-filter-options button.active {
+    background: #dceeff;
+    color: #318fd2;
+    font-weight: 600;
+}
+
+/* CARD UTAMA */
+.landing-katalog-card {
+    width: 100%;
+    padding: 28px 18px 18px;
+    background: #ffffff;
+    border: 1px solid #72bbed;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(46, 78, 102, 0.05);
+}
+
+.landing-katalog-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 14px;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.landing-katalog-back:hover {
+    color: #258ad0;
+}
+
+.landing-katalog-back i {
+    font-size: 20px;
+}
+
+/* GRID - 7 CARD PER BARIS */
+.landing-katalog-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 13px;
+}
+
+/* ITEM */
+.landing-katalog-item {
+    width: 100%;
+    min-width: 0;
+    min-height: 235px;
+    overflow: hidden;
+    padding: 8px;
+    border: 1px solid #6ab8eb;
+    border-radius: 9px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #ffffff;
+    color: #202326;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 3px 7px rgba(47, 83, 107, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.landing-katalog-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 13px rgba(47, 83, 107, 0.12);
+}
+
+/* COVER */
+.landing-katalog-cover {
+    width: 100%;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-katalog-cover img {
+    width: 68px;
+    height: 98px;
+    object-fit: cover;
+}
+
+.landing-katalog-cover-placeholder {
+    width: 68px;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f4fd;
+    color: #45a0e2;
+    font-size: 28px;
+}
+
+/* CONTENT */
+.landing-katalog-item-content {
+    min-width: 0;
+    padding: 4px 5px 5px;
+}
+
+.landing-katalog-item h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0 0 6px;
+    color: #151719;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.landing-katalog-item p {
+    margin: 2px 0;
+    overflow: hidden;
+    color: #5f676d;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* STOCK */
+.landing-katalog-stock {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    overflow: hidden;
+    color: #677077;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.landing-katalog-stock strong {
+    color: #2f94da;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* FOOTER CARD */
+.landing-katalog-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.landing-katalog-category {
+    min-width: 0;
+    overflow: hidden;
+    color: #329ce8;
+    font-size: 12px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.landing-katalog-status {
+    flex-shrink: 0;
+    padding: 4px 7px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.landing-katalog-status.available {
+    background: #cff7e8;
+    color: #26ad70;
+}
+
+.landing-katalog-status.unavailable {
+    background: #ffd9dd;
+    color: #e34b54;
+}
+
+/* EMPTY */
+.landing-katalog-empty {
+    min-height: 240px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #69747c;
+}
+
+.landing-katalog-empty.show {
+    display: flex;
+}
+
+.landing-katalog-empty i {
+    color: #3d9be0;
+    font-size: 32px;
+}
+
+.landing-katalog-empty strong {
+    color: #343a40;
+    font-size: 16px;
+}
+
+.landing-katalog-empty span {
+    font-size: 13px;
+}
+
+/* PAGINATION */
+.landing-katalog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.landing-katalog-pagination button {
+    min-width: 35px;
+    height: 35px;
+    padding: 0 10px;
+    border: 1px solid #79bce9;
+    border-right: 0;
+    background: #ffffff;
+    color: #258ad0;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.landing-katalog-pagination button:first-child {
+    border-radius: 6px 0 0 6px;
+}
+
+.landing-katalog-pagination button:last-child {
+    border-right: 1px solid #79bce9;
+    border-radius: 0 6px 6px 0;
+}
+
+.landing-katalog-pagination button.active {
+    background: #d8efff;
+    font-weight: 700;
+}
+
+.landing-katalog-pagination button:disabled {
+    color: #b5c1ca;
+    cursor: default;
+}
+
+/* LOGIN MODAL */
+.landing-katalog-login-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(24, 38, 49, 0.38);
+}
+
+.landing-katalog-login-modal.show {
+    display: flex;
+}
+
+.landing-katalog-login-box {
+    width: 100%;
+    max-width: 360px;
+    padding: 28px;
+    border-radius: 14px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 12px 35px rgba(35, 66, 88, 0.16);
+}
+
+.landing-katalog-login-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #e1f1ff;
+    color: #3498df;
+    font-size: 27px;
+}
+
+.landing-katalog-login-box h3 {
+    margin: 0;
+    color: #252a2e;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.landing-katalog-login-box p {
+    margin: 10px 0 24px;
+    color: #747d84;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.landing-katalog-login-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.landing-katalog-login-cancel,
+.landing-katalog-login-button {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.landing-katalog-login-cancel {
+    border: 0;
+    background: #eef2f5;
+    color: #555e65;
+}
+
+.landing-katalog-login-button {
+    border: 1px solid #6ab8eb;
+    background: #dcefff;
+    color: #318fd2;
+}
+
+.landing-katalog-login-cancel:hover {
+    background: #e3e8ec;
+}
+
+.landing-katalog-login-button:hover {
+    background: #cce8ff;
+    color: #258ad0;
+}
+
+.landing-katalog-login-cancel:hover,
+.landing-katalog-login-button:hover {
+    transform: translateY(-1px);
+}
+
+/* RESPONSIVE - LAPTOP */
+@media (max-width: 1350px) {
+
+    .landing-katalog-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+}
+
+/* RESPONSIVE - LAPTOP KECIL */
+@media (max-width: 1150px) {
+
+    .landing-katalog-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+}
+
+/* RESPONSIVE - TABLET */
+@media (max-width: 950px) {
+
+    .landing-katalog-toolbar {
+        width: 88%;
+    }
+
+    .landing-katalog-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .landing-katalog-page {
+        padding: 24px 14px;
+    }
+
+    .landing-katalog-toolbar {
+        width: 94%;
+        grid-template-columns: 1fr;
+        margin-bottom: -50px;
+    }
+
+    .landing-katalog-card {
+        padding: 60px 14px 18px;
+    }
+
+    .landing-katalog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+    }
+
+    .landing-katalog-item {
+        min-height: 245px;
+        padding: 9px;
+    }
+
+    .landing-katalog-cover {
+        height: 118px;
+    }
+
+    .landing-katalog-cover img,
+    .landing-katalog-cover-placeholder {
+        width: 72px;
+        height: 104px;
+    }
+
+    .landing-katalog-item h3 {
+        font-size: 14px;
+    }
+
+    .landing-katalog-item p {
+        font-size: 13px;
+    }
+
+    .landing-katalog-stock,
+    .landing-katalog-stock strong,
+    .landing-katalog-category {
+        font-size: 13px;
+    }
+
+    .landing-katalog-status {
+        padding: 4px 7px;
+        font-size: 11px;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .landing-katalog-page {
+        padding: 20px 10px;
+    }
+
+    .landing-katalog-toolbar {
+        width: 96%;
+    }
+
+    .landing-katalog-search input,
+    .landing-katalog-filter-button {
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .landing-katalog-filter-options button {
+        font-size: 14px;
+    }
+
+    .landing-katalog-card {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .landing-katalog-back {
+        font-size: 15px;
+    }
+
+    .landing-katalog-back i {
+        font-size: 21px;
+    }
+
+    .landing-katalog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .landing-katalog-item {
+        min-height: 260px;
+        padding: 9px;
+    }
+
+    .landing-katalog-cover {
+        height: 120px;
+    }
+
+    .landing-katalog-cover img,
+    .landing-katalog-cover-placeholder {
+        width: 74px;
+        height: 106px;
+    }
+
+    .landing-katalog-item-content {
+        padding: 5px 3px 4px;
+    }
+
+    .landing-katalog-item h3 {
+        margin-bottom: 6px;
+        font-size: 15px;
+        line-height: 1.3;
+    }
+
+    .landing-katalog-item p {
+        margin: 2px 0;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .landing-katalog-stock {
+        margin-top: 6px;
+        font-size: 13px;
+    }
+
+    .landing-katalog-stock strong {
+        font-size: 13px;
+    }
+
+    .landing-katalog-category {
+        font-size: 13px;
+    }
+
+    .landing-katalog-status {
+        padding: 4px 7px;
+        font-size: 12px;
+    }
+
+    .landing-katalog-login-box {
+        max-width: 340px;
+        padding: 25px 20px;
+    }
+
+    .landing-katalog-login-box h3 {
+        font-size: 20px;
+    }
+
+    .landing-katalog-login-box p {
+        font-size: 15px;
+    }
+
+    .landing-katalog-login-cancel,
+    .landing-katalog-login-button {
+        height: 42px;
+        font-size: 15px;
+    }
+}

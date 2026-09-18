@@ -1,0 +1,1577 @@
+* {
+    box-sizing: border-box;
+}
+
+.buku-page,
+.buku-form-page,
+.buku-detail-page,
+.katalog-page {
+    width: 100%;
+    font-family: "Figtree", sans-serif;
+}
+
+.buku-page *,
+.buku-form-page *,
+.buku-detail-page *,
+.katalog-page * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(77, 160, 219, 0.45) transparent;
+}
+
+.buku-page *::-webkit-scrollbar,
+.buku-form-page *::-webkit-scrollbar,
+.buku-detail-page *::-webkit-scrollbar,
+.katalog-page *::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.buku-page *::-webkit-scrollbar-track,
+.buku-form-page *::-webkit-scrollbar-track,
+.buku-detail-page *::-webkit-scrollbar-track,
+.katalog-page *::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.buku-page *::-webkit-scrollbar-thumb,
+.buku-form-page *::-webkit-scrollbar-thumb,
+.buku-detail-page *::-webkit-scrollbar-thumb,
+.katalog-page *::-webkit-scrollbar-thumb {
+    background: rgba(77, 160, 219, 0.45);
+    border-radius: 20px;
+}
+
+/* DATA BUKU */
+.buku-card {
+    width: 100%;
+    padding: 26px 28px 20px;
+    background: #ffffff;
+    border: 1px solid #84c4ee;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(51, 79, 99, 0.07);
+}
+
+.buku-title h2 {
+    margin: 0;
+    color: #555b60;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.buku-main-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.buku-btn {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.buku-btn:hover {
+    transform: translateY(-1px);
+}
+
+.buku-btn:disabled {
+    opacity: 0.65;
+    cursor: default;
+    transform: none;
+}
+
+.buku-btn i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.buku-btn-add {
+    background: #ffe0cf;
+    color: #ff7a38;
+}
+
+.buku-btn-import {
+    background: #d8f4e6;
+    color: #249a66;
+}
+
+.buku-btn-catalog {
+    background: #d5ebff;
+    color: #3f9be8;
+}
+
+.buku-import-form {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.buku-import-form input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ALERT */
+.buku-alert {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px 13px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.buku-alert.success {
+    background: #dff5e8;
+    color: #258e62;
+}
+
+.buku-alert.error {
+    background: #ffe5e7;
+    color: #d83d46;
+}
+
+/* CONTROL */
+.buku-control-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 14px 0 10px;
+}
+
+.buku-show-control {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #296aa1;
+    font-size: 14px;
+}
+
+/* ENTRIES DROPDOWN */
+.entries-filter-select {
+    position: relative;
+    width: 67px;
+}
+
+.entries-filter-button {
+    width: 67px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 9px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.entries-filter-button i {
+    color: #348fd0;
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.entries-filter-select.open .entries-filter-button {
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
+.entries-filter-select.open .entries-filter-button i {
+    transform: rotate(180deg);
+}
+
+.entries-filter-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 100;
+    width: 67px;
+    display: none;
+    padding: 4px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 5px 12px rgba(46, 78, 102, 0.12);
+}
+
+.entries-filter-select.open .entries-filter-options {
+    display: block;
+}
+
+.entries-filter-options button {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.entries-filter-options button:hover {
+    background: #edf7fd;
+}
+
+.entries-filter-options button.active {
+    background: #dceeff;
+    color: #258ad0;
+    font-weight: 600;
+}
+
+/* SEARCH */
+.buku-search {
+    position: relative;
+    width: 230px;
+}
+
+.buku-search i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #24a1ed;
+    font-size: 19px;
+}
+
+.buku-search input {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px 0 39px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    color: #333333;
+    transition: 0.2s ease;
+}
+
+.buku-search input::placeholder {
+    color: #5eb0e9;
+}
+
+.buku-search input:focus {
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
+/* TABLE */
+.buku-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #68b8ee;
+    border-radius: 12px;
+}
+
+.buku-table {
+    width: 100%;
+    min-width: 1180px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.buku-table th,
+.buku-table td {
+    border-bottom: 1px solid #71bdef;
+}
+
+.buku-table th:not(:last-child),
+.buku-table td:not(:last-child) {
+    border-right: 1px solid #71bdef;
+}
+
+.buku-table thead th {
+    height: 58px;
+    padding: 10px 12px;
+    background: #bfe3fa;
+    color: #131517;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.buku-table tbody td {
+    height: 72px;
+    padding: 10px 14px;
+    background: #ffffff;
+    color: #202326;
+    font-size: 14px;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.buku-table tbody tr:nth-child(odd) td {
+    background: #f0f9ff;
+}
+
+.col-cover {
+    width: 90px;
+}
+
+.col-title {
+    width: 180px;
+}
+
+.col-category {
+    width: 130px;
+}
+
+.col-publisher,
+.col-author {
+    width: 150px;
+}
+
+.col-year,
+.col-stock {
+    width: 90px;
+}
+
+.col-action {
+    width: 140px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.buku-cover-cell {
+    text-align: center;
+}
+
+.buku-cover-image,
+.buku-cover-placeholder {
+    width: 48px;
+    height: 64px;
+    border-radius: 5px;
+}
+
+.buku-cover-image {
+    object-fit: cover;
+}
+
+.buku-cover-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background: #e8f4fd;
+    color: #4ba3e5;
+}
+
+.buku-title-cell {
+    font-weight: 600;
+}
+
+.buku-category-badge {
+    display: inline-flex;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: #e4f3fd;
+    color: #2f8fcf;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stock-total {
+    font-weight: 700;
+}
+
+.stock-available {
+    color: #25a66c;
+    font-weight: 700;
+}
+
+.stock-empty {
+    color: #e34c54;
+    font-weight: 700;
+}
+
+/* ACTION */
+.buku-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.buku-action-btn {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.buku-action-btn:hover {
+    transform: translateY(-1px);
+}
+
+.buku-action-btn.view {
+    background: #cff7e8;
+    color: #27ab70;
+}
+
+.buku-action-btn.edit {
+    background: #ffe0cf;
+    color: #ff7937;
+}
+
+.buku-action-btn.delete {
+    background: #ffd9dd;
+    color: #e82c35;
+}
+
+.buku-action-btn i {
+    font-size: 17px;
+    -webkit-text-stroke: 0.35px currentColor;
+}
+
+.buku-delete-form {
+    display: none;
+}
+
+/* FOOTER */
+.buku-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.buku-info {
+    color: #2b6797;
+    font-size: 13px;
+}
+
+.buku-pagination,
+.katalog-pagination {
+    display: flex;
+    align-items: center;
+}
+
+.buku-pagination button,
+.katalog-pagination button {
+    min-width: 35px;
+    height: 35px;
+    padding: 0 10px;
+    border: 1px solid #79bce9;
+    border-right: 0;
+    background: #ffffff;
+    color: #258ad0;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.buku-pagination button:first-child,
+.katalog-pagination button:first-child {
+    border-radius: 6px 0 0 6px;
+}
+
+.buku-pagination button:last-child,
+.katalog-pagination button:last-child {
+    border-right: 1px solid #79bce9;
+    border-radius: 0 6px 6px 0;
+}
+
+.buku-pagination button.active,
+.katalog-pagination button.active {
+    background: #d8efff;
+    font-weight: 700;
+}
+
+.buku-pagination button:disabled,
+.katalog-pagination button:disabled {
+    color: #b5c1ca;
+}
+
+/* FORM */
+.buku-form-card {
+    width: 100%;
+    max-width: 950px;
+    margin: auto;
+    padding: 32px 40px 28px;
+    background: #ffffff;
+    border: 1px solid #84c4ee;
+    border-radius: 14px;
+}
+
+.buku-form-header h2 {
+    margin: 0;
+    color: #454a4e;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.buku-form-header p {
+    margin: 8px 0 0;
+    color: #838383;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.buku-form {
+    margin-top: 35px;
+}
+
+.buku-form-row {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 14px;
+}
+
+.buku-form-row > label {
+    padding-top: 10px;
+    color: #3fa3ef;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.buku-field {
+    min-width: 0;
+}
+
+.buku-field input {
+    width: 100%;
+    height: 44px;
+    padding: 0 18px;
+    border: 1px solid #55a8e7;
+    border-radius: 6px;
+    outline: none;
+    background: #f2f8fd;
+    color: #333333;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+
+.buku-field input::placeholder {
+    color: #5aaceb;
+}
+
+.buku-field input:focus {
+    background: #ffffff;
+    border-color: #329ce9;
+    box-shadow: 0 0 0 3px rgba(50, 156, 233, 0.10);
+}
+
+.buku-field small {
+    display: block;
+    margin-top: 7px;
+    color: #80878d;
+    font-size: 13px;
+}
+
+.buku-form-error {
+    margin-top: 7px;
+    color: #e34c54;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* CURRENT COVER EDIT */
+.buku-current-cover {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 12px;
+    border: 1px solid #c6e3f5;
+    border-radius: 7px;
+    background: #f7fbfe;
+}
+
+.buku-current-cover img {
+    display: block;
+    width: 150px;
+    height: 170px;
+    min-width: 120px;
+    max-width: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.buku-current-cover-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.buku-current-cover-info span {
+    color: #3f99db;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.buku-current-cover-info small {
+    margin: 0;
+    color: #80878d;
+    font-size: 13px;
+}
+
+/* FILE COVER */
+.buku-file {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid #55a8e7;
+    border-radius: 6px;
+    background: #f2f8fd;
+}
+
+.buku-file-button {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-right: 1px solid #55a8e7;
+    background: #dceefa;
+    color: #4aa4e8;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.buku-file span {
+    min-width: 0;
+    overflow: hidden;
+    padding: 0 18px;
+    color: #5aa9e6;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.buku-file input {
+    display: none;
+}
+
+/* FORM KATEGORI DROPDOWN */
+.form-filter-select {
+    position: relative;
+    width: 100%;
+}
+
+.form-filter-button {
+    width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 14px 0 18px;
+    border: 1px solid #55a8e7;
+    border-radius: 6px;
+    outline: none;
+    background: #f2f8fd;
+    color: #333333;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.form-filter-button i {
+    flex-shrink: 0;
+    color: #3d9be0;
+    font-size: 13px;
+    transition: transform 0.2s ease;
+}
+
+.form-filter-select.open .form-filter-button {
+    background: #ffffff;
+    border-color: #329ce9;
+    box-shadow: 0 0 0 3px rgba(50, 156, 233, 0.10);
+}
+
+.form-filter-select.open .form-filter-button i {
+    transform: rotate(180deg);
+}
+
+.form-filter-options {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 150;
+    width: 100%;
+    max-height: 190px;
+    display: none;
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid #55a8e7;
+    border-radius: 7px;
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(46, 78, 102, 0.12);
+}
+
+.form-filter-select.open .form-filter-options {
+    display: block;
+}
+
+.form-filter-options button {
+    width: 100%;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #4a535a;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.form-filter-options button:hover {
+    background: #edf7fd;
+    color: #318fd2;
+}
+
+.form-filter-options button.active {
+    background: #dceeff;
+    color: #318fd2;
+    font-weight: 600;
+}
+
+.form-filter-options {
+    scrollbar-width: thin;
+    scrollbar-color: #9ccded transparent;
+}
+
+.form-filter-options::-webkit-scrollbar {
+    width: 4px;
+}
+
+.form-filter-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.form-filter-options::-webkit-scrollbar-thumb {
+    background: #9ccded;
+    border-radius: 10px;
+}
+
+/* FORM ACTION */
+.buku-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 45px;
+}
+
+.buku-form-cancel,
+.buku-form-save {
+    min-width: 105px;
+    height: 41px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border: 1px solid #5aa9e6;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.buku-form-cancel {
+    background: #ffffff;
+    color: #3da1ed;
+}
+
+.buku-form-cancel:hover {
+    background: #f3faff;
+    transform: translateY(-1px);
+}
+
+.buku-form-save {
+    background: #edf7fe;
+    color: #3da1ed;
+}
+
+.buku-form-save:hover {
+    background: #dff1fd;
+    transform: translateY(-1px);
+}
+
+/* KATALOG */
+.katalog-page {
+    position: relative;
+    padding-top: 0;
+}
+
+.katalog-toolbar {
+    position: relative;
+    z-index: 5;
+    width: 74%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 175px;
+    gap: 12px;
+    margin: 0 auto -18px;
+}
+
+.katalog-search {
+    position: relative;
+}
+
+.katalog-search i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #2f9de9;
+    font-size: 20px;
+}
+
+.katalog-search input {
+    width: 100%;
+    height: 42px;
+    padding: 0 16px 0 45px;
+    border: 1px solid #67b6eb;
+    border-radius: 8px;
+    outline: none;
+    background: #edf6fd;
+    color: #333333;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.katalog-search input::placeholder {
+    color: #58a7e3;
+}
+
+/* FILTER KATALOG */
+.katalog-filter {
+    position: relative;
+}
+
+.katalog-filter-select {
+    position: relative;
+    width: 100%;
+}
+
+.katalog-filter-button {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px 0 14px;
+    border: 1px solid #67b6eb;
+    border-radius: 8px;
+    outline: none;
+    background: #edf6fd;
+    color: #459fe1;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.katalog-filter-button i {
+    color: #3d9be0;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.katalog-filter-select.open .katalog-filter-button i {
+    transform: rotate(180deg);
+}
+
+.katalog-filter-options {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    max-height: 190px;
+    display: none;
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid #67b6eb;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(46, 78, 102, 0.12);
+}
+
+.katalog-filter-select.open .katalog-filter-options {
+    display: block;
+}
+
+.katalog-filter-options button {
+    width: 100%;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #4a535a;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.katalog-filter-options button:hover {
+    background: #edf7fd;
+    color: #318fd2;
+}
+
+.katalog-filter-options button.active {
+    background: #dceeff;
+    color: #318fd2;
+    font-weight: 600;
+}
+
+.katalog-filter-options {
+    scrollbar-width: thin;
+    scrollbar-color: #9ccded transparent;
+}
+
+.katalog-filter-options::-webkit-scrollbar {
+    width: 4px;
+}
+
+.katalog-filter-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.katalog-filter-options::-webkit-scrollbar-thumb {
+    background: #9ccded;
+    border-radius: 10px;
+}
+
+/* CARD KATALOG */
+.katalog-card {
+    width: 100%;
+    padding: 28px 18px 18px;
+    background: #ffffff;
+    border: 1px solid #72bbed;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(46, 78, 102, 0.05);
+}
+
+.katalog-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 12px;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.katalog-back i {
+    font-size: 20px;
+}
+
+.katalog-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    gap: 18px;
+}
+
+.katalog-item {
+    min-width: 0;
+    min-height: 245px;
+    overflow: hidden;
+    padding: 9px;
+    border: 1px solid #6ab8eb;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #202326;
+    text-decoration: none;
+    box-shadow: 0 3px 7px rgba(47, 83, 107, 0.08);
+    transition: 0.2s ease;
+}
+
+.katalog-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 13px rgba(47, 83, 107, 0.12);
+}
+
+.katalog-cover {
+    width: 100%;
+    height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.katalog-cover img {
+    width: 78px;
+    height: 112px;
+    object-fit: cover;
+}
+
+.katalog-cover-placeholder {
+    width: 78px;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f4fd;
+    color: #45a0e2;
+    font-size: 28px;
+}
+
+.katalog-item-content {
+    padding: 4px 6px 5px;
+}
+
+.katalog-item h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0 0 6px;
+    color: #151719;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.katalog-item p {
+    margin: 2px 0;
+    overflow: hidden;
+    color: #5f676d;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.katalog-item-stock {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    color: #677077;
+    font-size: 12px;
+}
+
+.katalog-item-stock strong {
+    color: #2f94da;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.katalog-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.katalog-category {
+    color: #329ce8;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.katalog-status {
+    padding: 4px 9px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.katalog-status.available {
+    background: #cff7e8;
+    color: #26ad70;
+}
+
+.katalog-status.unavailable {
+    background: #ffd9dd;
+    color: #e34b54;
+}
+
+.katalog-empty {
+    min-height: 240px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.katalog-empty.show {
+    display: flex;
+}
+
+.katalog-pagination {
+    justify-content: center;
+    margin-top: 18px;
+}
+
+/* DETAIL BUKU */
+.buku-detail-card {
+    width: 100%;
+    min-height: 505px;
+    padding: 16px 22px 24px;
+    background: #ffffff;
+    border: 1px solid #72bbed;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(46, 78, 102, 0.05);
+}
+
+.buku-detail-top {
+    width: 100%;
+}
+
+.buku-detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #16191c;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.buku-detail-back i {
+    font-size: 24px;
+}
+
+.buku-detail-content {
+    width: 100%;
+    max-width: 790px;
+    display: grid;
+    grid-template-columns: 215px minmax(0, 1fr);
+    align-items: start;
+    gap: 50px;
+    margin: 38px auto 0;
+    padding: 0;
+}
+
+.buku-detail-cover {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.buku-detail-cover img,
+.buku-detail-placeholder {
+    width: 210px;
+    height: 305px;
+    border-radius: 10px;
+}
+
+.buku-detail-cover img {
+    object-fit: cover;
+}
+
+.buku-detail-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f4fd;
+    color: #45a0e2;
+    font-size: 48px;
+}
+
+.buku-detail-info {
+    padding-top: 2px;
+}
+
+.buku-detail-row {
+    display: grid;
+    grid-template-columns: 145px 15px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    color: #171a1d;
+    font-size: 15px;
+}
+
+.detail-label {
+    font-weight: 600;
+}
+
+.detail-separator {
+    font-weight: 600;
+    text-align: center;
+}
+
+.buku-detail-row strong {
+    color: #171a1d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.buku-detail-row .detail-category {
+    color: #329ce8;
+}
+
+.detail-stock {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.detail-stock-total,
+.detail-stock-available {
+    min-width: 46px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.detail-stock-total {
+    background: #d8ecff;
+    color: #3498df;
+}
+
+.detail-stock-available {
+    background: #cff7e8;
+    color: #26ad70;
+}
+
+.buku-detail-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 55px;
+}
+
+.detail-btn-edit,
+.detail-btn-delete {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 11px;
+    border: 0;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.detail-btn-edit:hover,
+.detail-btn-delete:hover {
+    transform: translateY(-1px);
+}
+
+.detail-btn-edit {
+    background: #ffe0cf;
+    color: #f47837;
+}
+
+.detail-btn-delete {
+    background: #ffd9dd;
+    color: #e82c35;
+}
+
+/* DELETE MODAL */
+.buku-delete-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(22, 34, 44, 0.35);
+}
+
+.buku-delete-modal.show {
+    display: flex;
+}
+
+.buku-delete-box {
+    width: 100%;
+    max-width: 350px;
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 13px;
+    text-align: center;
+}
+
+.buku-delete-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #ffe0e2;
+    color: #e9424b;
+    font-size: 22px;
+}
+
+.buku-delete-box h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.buku-delete-box p {
+    margin: 9px 0 22px;
+    color: #7f8991;
+    font-size: 13px;
+}
+
+.buku-delete-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.buku-delete-actions button {
+    flex: 1;
+    height: 38px;
+    border: 0;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.buku-delete-actions button:hover {
+    transform: translateY(-1px);
+}
+
+.modal-cancel {
+    background: #edf2f5;
+    color: #4f575d;
+}
+
+.modal-delete {
+    background: #ec4e56;
+    color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .katalog-grid {
+        grid-template-columns: repeat(4, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .katalog-toolbar {
+        width: 88%;
+    }
+
+    .katalog-grid {
+        grid-template-columns: repeat(3, minmax(145px, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .buku-control-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buku-search {
+        width: 100%;
+    }
+
+    .buku-form-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    .buku-form-row > label {
+        padding-top: 0;
+    }
+
+    .katalog-toolbar {
+        width: 94%;
+        grid-template-columns: 1fr;
+        margin-bottom: -50px;
+    }
+
+    .katalog-card {
+        padding-top: 60px;
+    }
+
+    .katalog-grid {
+        grid-template-columns: repeat(2, minmax(135px, 1fr));
+        gap: 12px;
+    }
+
+    .buku-detail-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .buku-detail-cover {
+        justify-content: center;
+    }
+
+    .buku-detail-info {
+        max-width: 520px;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .buku-main-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buku-btn,
+    .buku-import-form {
+        width: 100%;
+    }
+
+    .form-filter-button {
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .form-filter-options button {
+        font-size: 13px;
+    }
+
+    .katalog-search input,
+    .katalog-filter-button {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .katalog-grid {
+        gap: 9px;
+    }
+
+    .katalog-item {
+        min-height: 220px;
+        padding: 7px;
+    }
+
+    .katalog-cover {
+        height: 108px;
+    }
+
+    .katalog-cover img,
+    .katalog-cover-placeholder {
+        width: 68px;
+        height: 96px;
+    }
+
+    .katalog-item h3 {
+        font-size: 13px;
+    }
+
+    .katalog-item p,
+    .katalog-item-stock,
+    .katalog-category {
+        font-size: 11px;
+    }
+
+    .katalog-status {
+        font-size: 10px;
+    }
+
+    .buku-detail-card {
+        padding: 16px 14px 22px;
+    }
+
+    .buku-detail-content {
+        margin-top: 25px;
+    }
+
+    .buku-detail-cover img,
+    .buku-detail-placeholder {
+        width: 165px;
+        height: 240px;
+    }
+
+    .buku-detail-row {
+        grid-template-columns: 115px 10px minmax(0, 1fr);
+        gap: 6px;
+        font-size: 13px;
+    }
+
+    .buku-detail-row strong {
+        font-size: 13px;
+    }
+
+    .detail-stock-total,
+    .detail-stock-available {
+        font-size: 13px;
+    }
+
+    .buku-detail-actions {
+        margin-top: 35px;
+    }
+}
