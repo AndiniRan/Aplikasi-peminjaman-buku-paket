@@ -38,6 +38,12 @@ export default defineConfig({
 
                 'resources/css/adminTransaksi.css',
                 'resources/js/adminTransaksi.js',
+
+                'resources/css/adminLaporan.css',
+                'resources/js/adminLaporan.js',
+
+                'resources/css/adminProfile.css',
+                'resources/js/adminProfile.js',
             ],
 
             refresh: true,

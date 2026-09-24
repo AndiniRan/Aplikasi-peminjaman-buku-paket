@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\MemberSiswaController;
 use App\Http\Controllers\Admin\PengajuanController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengembalianController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\ProfileController;
 
 Route::get('/', function () {
     $books = Buku::with('kategori')
@@ -66,9 +68,15 @@ Route::middleware(['auth', 'role:admin'])
             ->except('show')
             ->names('member.guru');
 
+        Route::post('/member/guru/import', [MemberGuruController::class, 'import'])
+            ->name('member.guru.import');
+
         Route::resource('member/siswa', MemberSiswaController::class)
             ->except('show')
             ->names('member.siswa');
+        
+        Route::post('/member/siswa/import', [MemberSiswaController::class, 'import'])
+            ->name('member.siswa.import');
 
         // Pengajuan Peminjaman //
         Route::get('/pengajuan', [PengajuanController::class, 'index'])
@@ -104,6 +112,55 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::post('/transaksi/pengembalian', [PengembalianController::class, 'store'])
             ->name('transaksi.pengembalian.store');
+
+        // Laporan //
+        Route::prefix('laporan')
+            ->name('laporan.')
+            ->group(function () {
+
+                Route::get('/peminjaman', [LaporanController::class, 'peminjaman']) 
+                    ->name('peminjaman');
+
+                Route::get('/peminjaman/export/excel', [LaporanController::class, 'exportPeminjamanExcel'])
+                    ->name('peminjaman.export.excel');
+
+                Route::get('/peminjaman/export/pdf', [LaporanController::class, 'exportPeminjamanPdf'])
+                    ->name('peminjaman.export.pdf');
+
+                Route::get('/pengembalian', [LaporanController::class, 'pengembalian'])
+                    ->name('pengembalian');
+
+                Route::get('/pengembalian/export/excel', [LaporanController::class, 'exportPengembalianExcel'])
+                    ->name('pengembalian.export.excel');
+
+                Route::get('/pengembalian/export/pdf', [LaporanController::class, 'exportPengembalianPdf'])
+                    ->name('pengembalian.export.pdf');
+
+                Route::get('/buku', [LaporanController::class, 'buku'])
+                    ->name('buku');
+
+                Route::get('/buku/export/excel', [LaporanController::class, 'exportBukuExcel'])
+                    ->name('buku.export.excel');
+
+                Route::get('/buku/export/pdf', [LaporanController::class, 'exportBukuPdf'])
+                    ->name('buku.export.pdf');
+
+                Route::get('/member', [LaporanController::class, 'member'])
+                    ->name('member');
+
+                Route::get('/member/export/excel', [LaporanController::class, 'exportMemberExcel'])
+                    ->name('member.export.excel');
+
+                Route::get('/member/export/pdf', [LaporanController::class, 'exportMemberPdf'])
+                    ->name('member.export.pdf');
+            });
+        
+        // Profile //
+        Route::get('/profile', [ProfileController::class, 'index'])
+            ->name('profile.index');
+
+        Route::put('/profile', [ProfileController::class, 'update'])
+            ->name('profile.update');
     });
 
 require __DIR__.'/auth.php';

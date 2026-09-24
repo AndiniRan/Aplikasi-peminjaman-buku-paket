@@ -22,10 +22,14 @@
                 <span>Tambah Siswa</span>
             </a>
 
-            <button type="button" class="member-btn member-btn-import">
-                <i class="bi bi-file-earmark-arrow-up"></i>
-                <span>Import Excel</span>
-            </button>
+            <form action="{{ route('admin.member.siswa.import') }}" method="POST" enctype="multipart/form-data" id="importSiswaForm" class="member-import-form">
+                @csrf
+                <input type="file" name="file_excel" id="importSiswaFile" accept=".xlsx,.xls,.csv" hidden>
+                <button type="button" class="member-btn member-btn-import" id="importSiswaButton">
+                    <i class="bi bi-file-earmark-arrow-up"></i>
+                    <span>Import Excel</span>
+                </button>
+            </form>
         </div>
 
         @if(session('success'))
@@ -34,6 +38,20 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if(session('error'))
+            <div class="member-alert error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @error('file_excel')
+            <div class="member-alert error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ $message }}
+            </div>
+        @enderror
 
         <div class="member-control-row">
             <div class="member-show-control">

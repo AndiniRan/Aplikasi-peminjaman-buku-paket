@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\GuruImport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
+use Throwable;
 
 class MemberGuruController extends Controller
 {
@@ -16,7 +20,10 @@ class MemberGuruController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('admin.member.guru.index', compact('guru'));
+        return view(
+            'admin.member.guru.index',
+            compact('guru')
+        );
     }
 
     public function create()
@@ -36,7 +43,9 @@ class MemberGuruController extends Controller
         $foto = null;
 
         if ($request->hasFile('foto')) {
-            $foto = $request->file('foto')->store('profile', 'public');
+            $foto = $request
+                ->file('foto')
+                ->store('profile', 'public');
         }
 
         User::create([
@@ -52,18 +61,26 @@ class MemberGuruController extends Controller
 
         return redirect()
             ->route('admin.member.guru.index')
-            ->with('success', 'Data guru berhasil ditambahkan.');
+            ->with(
+                'success',
+                'Data guru berhasil ditambahkan.'
+            );
     }
 
     public function edit(User $guru)
     {
         abort_if($guru->role !== 'guru', 404);
 
-        return view('admin.member.guru.edit', compact('guru'));
+        return view(
+            'admin.member.guru.edit',
+            compact('guru')
+        );
     }
 
-    public function update(Request $request, User $guru)
-    {
+    public function update(
+        Request $request,
+        User $guru
+    ) {
         abort_if($guru->role !== 'guru', 404);
 
         $request->validate([
@@ -76,10 +93,13 @@ class MemberGuruController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($guru->foto) {
-                Storage::disk('public')->delete($guru->foto);
+                Storage::disk('public')
+                    ->delete($guru->foto);
             }
 
-            $guru->foto = $request->file('foto')->store('profile', 'public');
+            $guru->foto = $request
+                ->file('foto')
+                ->store('profile', 'public');
         }
 
         $guru->name = $request->name;
@@ -87,14 +107,19 @@ class MemberGuruController extends Controller
         $guru->status = $request->status;
 
         if ($request->filled('password')) {
-            $guru->password = Hash::make($request->password);
+            $guru->password = Hash::make(
+                $request->password
+            );
         }
 
         $guru->save();
 
         return redirect()
             ->route('admin.member.guru.index')
-            ->with('success', 'Data guru berhasil diperbarui.');
+            ->with(
+                'success',
+                'Data guru berhasil diperbarui.'
+            );
     }
 
     public function destroy(User $guru)
@@ -102,13 +127,46 @@ class MemberGuruController extends Controller
         abort_if($guru->role !== 'guru', 404);
 
         if ($guru->foto) {
-            Storage::disk('public')->delete($guru->foto);
+            Storage::disk('public')
+                ->delete($guru->foto);
         }
 
         $guru->delete();
 
         return redirect()
             ->route('admin.member.guru.index')
-            ->with('success', 'Data guru berhasil dihapus.');
+            ->with(
+                'success',
+                'Data guru berhasil dihapus.'
+            );
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file_excel' =>
+                'required|file|mimes:xlsx,xls,csv|max:5120',
+        ]);
+
+        try {
+            Excel::import(
+                new GuruImport(),
+                $request->file('file_excel')
+            );
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            return back()->with(
+                'error',
+                'Import data guru gagal. Periksa kembali format file Excel.'
+            );
+        }
+
+        return redirect()
+            ->route('admin.member.guru.index')
+            ->with(
+                'success',
+                'Data guru berhasil diimport.'
+            );
     }
 }

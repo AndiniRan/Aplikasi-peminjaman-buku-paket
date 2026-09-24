@@ -6,7 +6,7 @@
         </button>
 
         <h1 class="topbar-page-title">
-            @yield('page-title', 'Dashboard')
+            <?php echo $__env->yieldContent('page-title', 'Dashboard'); ?>
         </h1>
     </div>
 
@@ -15,18 +15,19 @@
         <button type="button" class="topbar-profile" id="topbarProfileButton">
 
             <div class="topbar-avatar">
-                @if(Auth::user()->foto)
-                    <img src="{{ asset('storage/' . Auth::user()->foto) }}" alt="Foto {{ Auth::user()->name }}">
-                @else
+                <?php if(Auth::user()->foto): ?>
+                    <img src="<?php echo e(asset('storage/' . Auth::user()->foto)); ?>" alt="Foto <?php echo e(Auth::user()->name); ?>">
+                <?php else: ?>
                     <div class="topbar-avatar-default">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        <?php echo e(strtoupper(substr(Auth::user()->name, 0, 1))); ?>
+
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
 
             <div class="topbar-profile-text">
-                <strong>{{ Auth::user()->name }}</strong>
-                <span>{{ ucfirst(Auth::user()->role) }}</span>
+                <strong><?php echo e(Auth::user()->name); ?></strong>
+                <span><?php echo e(ucfirst(Auth::user()->role)); ?></span>
             </div>
 
             <i class="bi bi-chevron-down topbar-chevron"></i>
@@ -34,13 +35,13 @@
 
         <!-- DROPDOWN -->
         <div class="profile-dropdown" id="profileDropdown">
-            <a  href="{{ route('admin.profile.index') }}">
+            <a  href="<?php echo e(route('admin.profile.index')); ?>">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
             </a>
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+            <form method="POST" action="<?php echo e(route('logout')); ?>">
+                <?php echo csrf_field(); ?>
 
                 <button type="submit">
                     <i class="bi bi-box-arrow-right"></i>
@@ -49,4 +50,4 @@
             </form>
         </div>
     </div>
-</header>
+</header><?php /**PATH C:\xampp\htdocs\Aplikasi_peminjaman_buku_paket(PKL)\resources\views/layouts/topbar.blade.php ENDPATH**/ ?>

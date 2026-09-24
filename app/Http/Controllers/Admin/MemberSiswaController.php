@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\SiswaImport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
+use Throwable;
 
 class MemberSiswaController extends Controller
 {
@@ -16,7 +20,10 @@ class MemberSiswaController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('admin.member.siswa.index', compact('siswa'));
+        return view(
+            'admin.member.siswa.index',
+            compact('siswa')
+        );
     }
 
     public function create()
@@ -37,7 +44,9 @@ class MemberSiswaController extends Controller
         $foto = null;
 
         if ($request->hasFile('foto')) {
-            $foto = $request->file('foto')->store('profile', 'public');
+            $foto = $request
+                ->file('foto')
+                ->store('profile', 'public');
         }
 
         User::create([
@@ -53,18 +62,26 @@ class MemberSiswaController extends Controller
 
         return redirect()
             ->route('admin.member.siswa.index')
-            ->with('success', 'Data siswa berhasil ditambahkan.');
+            ->with(
+                'success',
+                'Data siswa berhasil ditambahkan.'
+            );
     }
 
     public function edit(User $siswa)
     {
         abort_if($siswa->role !== 'siswa', 404);
 
-        return view('admin.member.siswa.edit', compact('siswa'));
+        return view(
+            'admin.member.siswa.edit',
+            compact('siswa')
+        );
     }
 
-    public function update(Request $request, User $siswa)
-    {
+    public function update(
+        Request $request,
+        User $siswa
+    ) {
         abort_if($siswa->role !== 'siswa', 404);
 
         $request->validate([
@@ -78,10 +95,13 @@ class MemberSiswaController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($siswa->foto) {
-                Storage::disk('public')->delete($siswa->foto);
+                Storage::disk('public')
+                    ->delete($siswa->foto);
             }
 
-            $siswa->foto = $request->file('foto')->store('profile', 'public');
+            $siswa->foto = $request
+                ->file('foto')
+                ->store('profile', 'public');
         }
 
         $siswa->nis = $request->nis;
@@ -90,14 +110,19 @@ class MemberSiswaController extends Controller
         $siswa->status = $request->status;
 
         if ($request->filled('password')) {
-            $siswa->password = Hash::make($request->password);
+            $siswa->password = Hash::make(
+                $request->password
+            );
         }
 
         $siswa->save();
 
         return redirect()
             ->route('admin.member.siswa.index')
-            ->with('success', 'Data siswa berhasil diperbarui.');
+            ->with(
+                'success',
+                'Data siswa berhasil diperbarui.'
+            );
     }
 
     public function destroy(User $siswa)
@@ -105,13 +130,46 @@ class MemberSiswaController extends Controller
         abort_if($siswa->role !== 'siswa', 404);
 
         if ($siswa->foto) {
-            Storage::disk('public')->delete($siswa->foto);
+            Storage::disk('public')
+                ->delete($siswa->foto);
         }
 
         $siswa->delete();
 
         return redirect()
             ->route('admin.member.siswa.index')
-            ->with('success', 'Data siswa berhasil dihapus.');
+            ->with(
+                'success',
+                'Data siswa berhasil dihapus.'
+            );
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file_excel' =>
+                'required|file|mimes:xlsx,xls,csv|max:5120',
+        ]);
+
+        try {
+            Excel::import(
+                new SiswaImport(),
+                $request->file('file_excel')
+            );
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            return back()->with(
+                'error',
+                'Import data siswa gagal. Periksa kembali format file Excel.'
+            );
+        }
+
+        return redirect()
+            ->route('admin.member.siswa.index')
+            ->with(
+                'success',
+                'Data siswa berhasil diimport.'
+            );
     }
 }

@@ -1,0 +1,928 @@
+* {
+    box-sizing: border-box;
+}
+
+/* PAGE */
+.laporan-page {
+    width: 100%;
+    font-family: "Figtree", sans-serif;
+}
+
+.laporan-page * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(77, 160, 219, 0.45) transparent;
+}
+
+.laporan-page *::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.laporan-page *::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.laporan-page *::-webkit-scrollbar-thumb {
+    background: rgba(77, 160, 219, 0.45);
+    border-radius: 20px;
+}
+
+/* CARD */
+.laporan-card {
+    width: 100%;
+    padding: 26px 28px 20px;
+    background: #ffffff;
+    border: 1px solid #84c4ee;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(51, 79, 99, 0.07);
+}
+
+/* TITLE */
+.laporan-title h2 {
+    margin: 0;
+    color: #555b60;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.laporan-title p {
+    margin: 6px 0 0;
+    color: #8a9095;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* FILTER */
+.laporan-filter-form {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 22px;
+    padding: 18px;
+    border: 1px solid #d5eaf8;
+    border-radius: 10px;
+    background: #f9fcff;
+}
+
+.laporan-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.laporan-filter-group label {
+    color: #296aa1;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* FILTER SELECT */
+.laporan-filter-select {
+    position: relative;
+    width: 185px;
+}
+
+.laporan-filter-button {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 12px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.laporan-filter-button:hover {
+    border-color: #5faee4;
+}
+
+.laporan-filter-button i {
+    color: #348fd0;
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.laporan-filter-select.open .laporan-filter-button {
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
+.laporan-filter-select.open .laporan-filter-button i {
+    transform: rotate(180deg);
+}
+
+.laporan-filter-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 250;
+    width: 100%;
+    max-height: 230px;
+    display: none;
+    overflow-y: auto;
+    padding: 4px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 5px 12px rgba(46, 78, 102, 0.12);
+}
+
+.laporan-filter-select.open .laporan-filter-options {
+    display: block;
+}
+
+.laporan-filter-options button {
+    width: 100%;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.laporan-filter-options button:hover {
+    background: #edf7fd;
+}
+
+.laporan-filter-options button.active {
+    background: #dceeff;
+    color: #258ad0;
+    font-weight: 600;
+}
+
+/* DATE PICKER */
+.laporan-date-picker {
+    position: relative;
+    width: 175px;
+}
+
+.laporan-date-button {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 12px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.laporan-date-button:hover {
+    border-color: #5faee4;
+}
+
+.laporan-date-picker.open .laporan-date-button {
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
+.laporan-date-button span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.laporan-date-button i {
+    flex-shrink: 0;
+    color: #348fd0;
+    font-size: 16px;
+}
+
+.laporan-calendar {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 300;
+    width: 280px;
+    display: none;
+    padding: 12px;
+    border: 1px solid #82bce6;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(46, 78, 102, 0.15);
+}
+
+.laporan-date-picker.open .laporan-calendar {
+    display: block;
+    animation: laporanCalendarOpen 0.18s ease;
+}
+
+@keyframes laporanCalendarOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.laporan-calendar-header {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.laporan-calendar-header strong {
+    color: #296aa1;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.laporan-calendar-header button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #348fd0;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.laporan-calendar-header button:hover {
+    background: #edf7fd;
+}
+
+.laporan-calendar-days,
+.laporan-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.laporan-calendar-days {
+    margin-bottom: 5px;
+}
+
+.laporan-calendar-days span {
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7b9db5;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.laporan-calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #39454d;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.laporan-calendar-day:hover {
+    background: #edf7fd;
+    color: #258bd0;
+}
+
+.laporan-calendar-day.today {
+    color: #258bd0;
+    font-weight: 700;
+}
+
+.laporan-calendar-day.selected {
+    background: #349ee8;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.laporan-calendar-day.selected:hover {
+    background: #349ee8;
+    color: #ffffff;
+}
+
+.laporan-calendar-empty {
+    aspect-ratio: 1;
+}
+
+/* FILTER ACTIONS */
+.laporan-filter-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.laporan-btn-filter,
+.laporan-btn-refresh,
+.laporan-btn-export {
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 15px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.laporan-btn-filter {
+    border: 1px solid #329ce9;
+    background: #329ce9;
+    color: #ffffff;
+}
+
+.laporan-btn-refresh {
+    border: 1px solid #66afe2;
+    background: #ffffff;
+    color: #348fd0;
+}
+
+.laporan-btn-export {
+    border: 0;
+    background: #d8f4e6;
+    color: #249a66;
+}
+
+.laporan-btn-filter:hover,
+.laporan-btn-refresh:hover,
+.laporan-btn-export:hover {
+    transform: translateY(-1px);
+}
+
+.laporan-btn-filter:hover {
+    background: #278ed8;
+}
+
+.laporan-btn-refresh:hover {
+    background: #eef8ff;
+}
+
+.laporan-btn-export:hover {
+    background: #c9eedc;
+}
+
+/* EXPORT DROPDOWN */
+.laporan-export {
+    position: relative;
+    display: inline-flex;
+}
+
+.laporan-export.open .laporan-btn-export {
+    background: #c9eedc;
+}
+
+.laporan-export .export-chevron {
+    margin-left: 2px;
+    font-size: 10px;
+    transition: transform 0.2s ease;
+}
+
+.laporan-export.open .export-chevron {
+    transform: rotate(180deg);
+}
+
+.laporan-export-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    z-index: 350;
+    width: 145px;
+    display: none;
+    overflow: hidden;
+    padding: 4px;
+    border: 1px solid #b8e5cf;
+    border-radius: 7px;
+    background: #ffffff;
+    box-shadow: 0 7px 18px rgba(46, 78, 102, 0.13);
+}
+
+.laporan-export.open .laporan-export-menu {
+    display: block;
+}
+
+.laporan-export-menu a {
+    width: 100%;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 10px;
+    border-radius: 5px;
+    color: #249a66;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.15s ease;
+}
+
+.laporan-export-menu a:hover {
+    background: #eaf8f1;
+    color: #20885b;
+}
+
+.laporan-export-menu a i {
+    width: 18px;
+    color: #249a66;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* CONTROL */
+.laporan-control-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 14px 0 10px;
+}
+
+.laporan-show-control {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #296aa1;
+    font-size: 14px;
+}
+
+/* ENTRIES */
+.entries-filter-select {
+    position: relative;
+    width: 67px;
+}
+
+.entries-filter-button {
+    width: 67px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 9px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.entries-filter-button:hover {
+    border-color: #5faee4;
+}
+
+.entries-filter-button i {
+    color: #348fd0;
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.entries-filter-select.open .entries-filter-button {
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
+.entries-filter-select.open .entries-filter-button i {
+    transform: rotate(180deg);
+}
+
+.entries-filter-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 200;
+    width: 67px;
+    display: none;
+    padding: 4px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 5px 12px rgba(46, 78, 102, 0.12);
+}
+
+.entries-filter-select.open .entries-filter-options {
+    display: block;
+}
+
+.entries-filter-options button {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.entries-filter-options button:hover {
+    background: #edf7fd;
+}
+
+.entries-filter-options button.active {
+    background: #dceeff;
+    color: #258ad0;
+    font-weight: 600;
+}
+
+/* SEARCH */
+.laporan-search {
+    position: relative;
+    width: 230px;
+}
+
+.laporan-search i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #24a1ed;
+    font-size: 19px;
+    pointer-events: none;
+}
+
+.laporan-search input {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px 0 39px;
+    border: 1px solid #82bce6;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    color: #333333;
+    font-family: inherit;
+    font-size: 13px;
+    transition: 0.2s ease;
+}
+
+.laporan-search input::placeholder {
+    color: #5eb0e9;
+}
+
+.laporan-search input:hover {
+    border-color: #5faee4;
+}
+
+.laporan-search input:focus {
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
+/* TABLE */
+.laporan-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #68b8ee;
+    border-radius: 12px;
+}
+
+.laporan-table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.pengembalian-table {
+    min-width: 1200px;
+}
+
+.buku-table {
+    min-width: 1350px;
+}
+
+.member-table {
+    min-width: 1050px;
+}
+
+.laporan-table th,
+.laporan-table td {
+    border-bottom: 1px solid #71bdef;
+}
+
+.laporan-table th:not(:last-child),
+.laporan-table td:not(:last-child) {
+    border-right: 1px solid #71bdef;
+}
+
+.laporan-table thead th {
+    height: 58px;
+    padding: 10px 12px;
+    background: #bfe3fa;
+    color: #131517;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.laporan-table tbody {
+    background: #ffffff;
+}
+
+.laporan-table tbody tr {
+    background: #ffffff;
+}
+
+.laporan-table tbody tr:nth-child(odd) {
+    background: #f0f9ff;
+}
+
+.laporan-table tbody td {
+    height: 72px;
+    padding: 10px 14px;
+    background: inherit;
+    color: #202326;
+    font-size: 14px;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.laporan-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.laporan-table .col-no {
+    width: 65px;
+}
+
+.laporan-table .text-center {
+    text-align: center;
+}
+
+.laporan-subtext {
+    display: block;
+    margin-top: 4px;
+    color: #87959f;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.laporan-book-title {
+    font-weight: 600;
+}
+
+/* COVER */
+.laporan-book-cover {
+    width: 48px;
+    height: 66px;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.laporan-book-placeholder {
+    width: 48px;
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 5px;
+    background: #eaf6fe;
+    color: #5faee4;
+    font-size: 20px;
+}
+
+/* STATUS */
+.laporan-status {
+    min-width: 88px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.laporan-status.dipinjam {
+    background: #dceeff;
+    color: #258bd0;
+}
+
+.laporan-status.selesai,
+.laporan-status.aktif {
+    background: #d7f5e6;
+    color: #229663;
+}
+
+.laporan-status.terlambat,
+.laporan-status.nonaktif {
+    background: #ffe0e3;
+    color: #dc3944;
+}
+
+/* EMPTY */
+.database-empty-row td {
+    height: 200px !important;
+}
+
+.laporan-empty {
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #8b949b;
+    text-align: center;
+}
+
+.laporan-empty i {
+    font-size: 28px;
+}
+
+.laporan-empty strong {
+    font-size: 14px;
+}
+
+.laporan-empty span {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+/* FOOTER */
+.laporan-table-footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 16px;
+}
+
+.laporan-info {
+    color: #2b6797;
+    font-size: 13px;
+}
+
+/* PAGINATION */
+.laporan-pagination {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.laporan-page-button {
+    min-width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    border: 1px solid #9ac9e9;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #348fd0;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.laporan-page-button:hover:not(:disabled):not(.active) {
+    border-color: #42a3e5;
+    background: #edf7fd;
+    transform: translateY(-1px);
+}
+
+.laporan-page-button.active {
+    border-color: #349ee8;
+    background: #349ee8;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.laporan-page-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .laporan-card {
+        padding: 20px;
+    }
+
+    .laporan-filter-form {
+        align-items: stretch;
+    }
+
+    .laporan-filter-group,
+    .laporan-filter-select,
+    .laporan-date-picker {
+        width: 100%;
+    }
+
+    .laporan-filter-actions {
+        width: 100%;
+    }
+
+    .laporan-export {
+        width: auto;
+    }
+
+    .laporan-control-row,
+    .laporan-table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .laporan-search {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .laporan-card {
+        padding: 18px 14px;
+    }
+
+    .laporan-title h2 {
+        font-size: 22px;
+    }
+
+    .laporan-filter-form {
+        padding: 14px;
+    }
+
+    .laporan-filter-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .laporan-btn-filter,
+    .laporan-btn-refresh,
+    .laporan-export,
+    .laporan-btn-export {
+        width: 100%;
+    }
+
+    .laporan-export-menu {
+        right: auto;
+        left: 0;
+        width: 100%;
+    }
+
+    .laporan-show-control {
+        flex-wrap: wrap;
+    }
+
+    .laporan-pagination {
+        flex-wrap: wrap;
+    }
+}

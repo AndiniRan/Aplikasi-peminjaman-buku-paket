@@ -449,4 +449,37 @@ document.addEventListener('DOMContentLoaded', function () {
         saveButton.disabled = true;
         saveButton.textContent = 'Menyimpan...';
     });
+
+    
+    const importGuruButton = document.getElementById('importGuruButton');
+    const importGuruFile = document.getElementById('importGuruFile');
+    const importGuruForm = document.getElementById('importGuruForm');
+
+    if (importGuruButton && importGuruFile && importGuruForm) {
+        importGuruButton.addEventListener('click', () => {
+            importGuruFile.click();
+        });
+
+        importGuruFile.addEventListener('change', () => {
+            if (importGuruFile.files.length > 0) {
+                importGuruForm.submit();
+            }
+        });
+    }
+
+    const importSiswaButton = document.getElementById('importSiswaButton');
+    const importSiswaFile = document.getElementById('importSiswaFile');
+    const importSiswaForm = document.getElementById('importSiswaForm');
+
+    if (importSiswaButton && importSiswaFile && importSiswaForm) {
+        importSiswaButton.addEventListener('click', () => {
+            importSiswaFile.click();
+        });
+
+        importSiswaFile.addEventListener('change', () => {
+            if (importSiswaFile.files.length > 0) {
+                importSiswaForm.submit();
+            }
+        });
+    }
 });
