@@ -34,7 +34,7 @@
         <div class="search-box">
             <i class="bi bi-search"></i>
 
-            <inpu type="text" id="landingBookSearch" placeholder="Cari buku berdasarkan judul, penulis, kategori..." autocomplete="off">
+            <input type="text" id="landingBookSearch" placeholder="Cari buku berdasarkan judul, penulis, kategori..." autocomplete="off">
         </div>
     </div>
 

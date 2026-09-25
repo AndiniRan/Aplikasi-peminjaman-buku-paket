@@ -22,8 +22,7 @@
     
     <?php echo app('Illuminate\Foundation\Vite')([
         'resources/css/adminSidebar.css',
-        'resources/css/adminTopbar.css',
-        'resources/css/adminDashboard.css'
+        'resources/css/adminTopbar.css'
     ]); ?>
 </head>
 
@@ -50,8 +49,7 @@
     
     <?php echo app('Illuminate\Foundation\Vite')([
         'resources/js/adminSidebar.js',
-        'resources/js/adminTopbar.js',
-        'resources/js/adminDashboard.js'
+        'resources/js/adminTopbar.js'
     ]); ?>
 </body>
 </html><?php /**PATH C:\xampp\htdocs\Aplikasi_peminjaman_buku_paket(PKL)\resources\views/layouts/dashboard.blade.php ENDPATH**/ ?>

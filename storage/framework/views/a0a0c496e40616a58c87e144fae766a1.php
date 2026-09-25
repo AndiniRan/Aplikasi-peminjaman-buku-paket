@@ -3,6 +3,11 @@
 <?php $__env->startSection('title', 'Dashboard Admin'); ?>
 <?php $__env->startSection('page-title', 'Dashboard'); ?>
 
+<?php echo app('Illuminate\Foundation\Vite')([
+    'resources/css/adminDashboard.css',
+    'resources/js/adminDashboard.js'
+]); ?>
+
 <?php $__env->startSection('content'); ?>
 
 <div class="admin-dashboard-page">

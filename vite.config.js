@@ -17,6 +17,7 @@ export default defineConfig({
                 'resources/css/login.css',
 
                 'resources/css/adminDashboard.css',
+                'resources/css/memberDashboard.css',
                 'resources/css/adminSidebar.css',
                 'resources/css/adminTopbar.css',
 
@@ -29,6 +30,8 @@ export default defineConfig({
 
                 'resources/css/adminBuku.css',
                 'resources/js/adminBuku.js',
+                'resources/css/memberKatalog.css',
+                'resources/js/memberKatalog.js',
 
                 'resources/css/adminMember.css',
                 'resources/js/adminMember.js',

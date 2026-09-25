@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengembalianController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
+use App\Http\Controllers\Member\KatalogController as MemberKatalogController;
 
 Route::get('/', function () {
     $books = Buku::with('kategori')
@@ -161,6 +163,25 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::put('/profile', [ProfileController::class, 'update'])
             ->name('profile.update');
+    });
+
+Route::middleware(['auth'])
+    ->prefix('member')
+    ->name('member.')
+    ->group(function () {
+
+        Route::get('/dashboard', [MemberDashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // Katalog //
+        Route::get('/katalog', [MemberKatalogController::class, 'index'])
+            ->name('katalog.index');
+
+        Route::get('/katalog/{buku}', [MemberKatalogController::class, 'show'])
+            ->name('katalog.show');
+
+        Route::get('/katalog/{buku}/pengajuan', [MemberKatalogController::class, 'pengajuan'])
+            ->name('katalog.pengajuan');
     });
 
 require __DIR__.'/auth.php';

@@ -857,8 +857,8 @@
 
 .katalog-toolbar {
     position: relative;
-    z-index: 5;
-    width: 74%;
+    z-index: 20;
+    width: min(78%, 760px);
     display: grid;
     grid-template-columns: minmax(0, 1fr) 175px;
     gap: 12px;
@@ -867,6 +867,7 @@
 
 .katalog-search {
     position: relative;
+    min-width: 0;
 }
 
 .katalog-search i {
@@ -889,11 +890,19 @@
     color: #333333;
     font-family: inherit;
     font-size: 14px;
+    transition: 0.2s ease;
 }
 
 .katalog-search input::placeholder {
     color: #58a7e3;
 }
+
+.katalog-search input:focus {
+    border-color: #41a4e8;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
+}
+
 
 /* FILTER KATALOG */
 .katalog-filter {
@@ -911,6 +920,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
     padding: 0 13px 0 14px;
     border: 1px solid #67b6eb;
     border-radius: 8px;
@@ -921,12 +931,20 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
 .katalog-filter-button i {
+    flex-shrink: 0;
     color: #3d9be0;
     font-size: 14px;
     transition: transform 0.2s ease;
+}
+
+.katalog-filter-select.open .katalog-filter-button {
+    background: #ffffff;
+    border-color: #41a4e8;
+    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
 }
 
 .katalog-filter-select.open .katalog-filter-button i {
@@ -937,7 +955,7 @@
     position: absolute;
     top: calc(100% + 6px);
     left: 0;
-    z-index: 50;
+    z-index: 100;
     width: 100%;
     max-height: 190px;
     display: none;
@@ -947,6 +965,8 @@
     border-radius: 8px;
     background: #ffffff;
     box-shadow: 0 6px 16px rgba(46, 78, 102, 0.12);
+    scrollbar-width: thin;
+    scrollbar-color: #9ccded transparent;
 }
 
 .katalog-filter-select.open .katalog-filter-options {
@@ -979,11 +999,6 @@
     background: #dceeff;
     color: #318fd2;
     font-weight: 600;
-}
-
-.katalog-filter-options {
-    scrollbar-width: thin;
-    scrollbar-color: #9ccded transparent;
 }
 
 .katalog-filter-options::-webkit-scrollbar {

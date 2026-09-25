@@ -3,6 +3,11 @@
 @section('title', 'Dashboard Admin')
 @section('page-title', 'Dashboard')
 
+@vite([
+    'resources/css/adminDashboard.css',
+    'resources/js/adminDashboard.js'
+])
+
 @section('content')
 
 <div class="admin-dashboard-page">

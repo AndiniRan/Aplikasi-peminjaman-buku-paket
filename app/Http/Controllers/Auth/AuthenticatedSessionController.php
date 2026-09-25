@@ -11,26 +11,72 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /* Display the login view. */
+    /*
+    |--------------------------------------------------------------------------
+    | DISPLAY LOGIN
+    |--------------------------------------------------------------------------
+    */
     public function create(): View
     {
         return view('auth.login');
     }
 
-    /* Handle an incoming authentication request. */
+    /*
+    |--------------------------------------------------------------------------
+    | LOGIN
+    |--------------------------------------------------------------------------
+    */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+
         $request->session()->regenerate();
-        return redirect()->intended(route('admin.dashboard'));
+
+        $user = Auth::user();
+
+        /*
+        |--------------------------------------------------------------------------
+        | REDIRECT BERDASARKAN ROLE
+        |--------------------------------------------------------------------------
+        */
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->role === 'guru' || $user->role === 'siswa') {
+            return redirect()->route('member.dashboard');
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | ROLE TIDAK DIKENAL
+        |--------------------------------------------------------------------------
+        */
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('login')
+            ->withErrors([
+                'email' => 'Role akun tidak dikenali.',
+            ]);
     }
 
-    /* Destroy an authenticated session. */
+    /*
+    |--------------------------------------------------------------------------
+    | LOGOUT
+    |--------------------------------------------------------------------------
+    */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+
+        return redirect()
+            ->route('landing.landingPage');
     }
 }

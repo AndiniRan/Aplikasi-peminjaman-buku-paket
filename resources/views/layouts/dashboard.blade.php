@@ -22,8 +22,7 @@
     {{-- CSS GLOBAL DASHBOARD --}}
     @vite([
         'resources/css/adminSidebar.css',
-        'resources/css/adminTopbar.css',
-        'resources/css/adminDashboard.css'
+        'resources/css/adminTopbar.css'
     ])
 </head>
 
@@ -50,8 +49,7 @@
     {{-- JS DASHBOARD --}}
     @vite([
         'resources/js/adminSidebar.js',
-        'resources/js/adminTopbar.js',
-        'resources/js/adminDashboard.js'
+        'resources/js/adminTopbar.js'
     ])
 </body>
 </html>

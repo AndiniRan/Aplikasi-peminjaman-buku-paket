@@ -123,12 +123,12 @@
 
         <!-- MEMBER (GURU & SISWA) MENU -->
         @if(in_array(Auth::user()->role, ['guru', 'siswa']))
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('member.dashboard') }}" class="sidebar-link {{ request()->routeIs('member.dashboard') ? 'active' : '' }}">
                 <i class="bi bi-house-door-fill"></i>
                 <span>Dashboard</span>
             </a>
 
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('member.katalog.index') }}" class="sidebar-link {{ request()->routeIs('member.katalog.*') ? 'active' : '' }}">
                 <i class="bi bi-book"></i>
                 <span>Katalog Buku</span>
             </a>
