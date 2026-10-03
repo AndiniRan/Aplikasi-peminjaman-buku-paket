@@ -119,6 +119,12 @@
                     </a>
                 </div>
             </div>
+
+            <!--  -->
+            <a  href="<?php echo e(route('admin.profile.index')); ?>" class="sidebar-link <?php echo e(request()->routeIs('admin.profile.*') ? 'active' : ''); ?>">
+                <i class="bi bi-person"></i>
+                <span>Profil</span>
+            </a>
         <?php endif; ?>
 
         <!-- MEMBER (GURU & SISWA) MENU -->
@@ -133,27 +139,21 @@
                 <span>Katalog Buku</span>
             </a>
 
-            <a href="#" class="sidebar-link">
+            <a href="<?php echo e(route('member.pengajuan.index')); ?>" class="sidebar-link <?php echo e(request()->routeIs('member.pengajuan.*') ? 'active' : ''); ?>">
                 <i class="bi bi-arrows-fullscreen"></i>
-                <span>Pengajuan Pinjaman</span>
+                <span>Pengajuan Saya</span>
             </a>
 
-            <a href="#" class="sidebar-link">
-                <i class="bi bi-journal-check"></i>
-                <span>Peminjaman Saya</span>
-            </a>
-
-            <a href="#" class="sidebar-link">
+            <a href="<?php echo e(route('member.riwayat.index')); ?>" class="sidebar-link <?php echo e(request()->routeIs('member.riwayat.*') ? 'active' : ''); ?>">
                 <i class="bi bi-clock-history"></i>
                 <span>Riwayat Peminjaman</span>
             </a>
-        <?php endif; ?>
 
-        <!--  -->
-        <a  href="<?php echo e(route('admin.profile.index')); ?>" class="sidebar-link <?php echo e(request()->routeIs('admin.profile.*') ? 'active' : ''); ?>">
-            <i class="bi bi-person"></i>
-            <span>Profil</span>
-        </a>
+            <a href="<?php echo e(route('member.profile.index')); ?>" class="sidebar-link <?php echo e(request()->routeIs('member.profile.*') ? 'active' : ''); ?>">
+                <i class="bi bi-person"></i>
+                <span>Profil</span>
+            </a>
+        <?php endif; ?>
     </nav>
 
     <!-- LOGOUT -->

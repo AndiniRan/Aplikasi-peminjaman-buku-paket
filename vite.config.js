@@ -38,15 +38,21 @@ export default defineConfig({
 
                 'resources/css/adminPengajuan.css',
                 'resources/js/adminPengajuan.js',
+                'resources/css/memberPengajuan.css',
+                'resources/js/memberPengajuan.js',
 
                 'resources/css/adminTransaksi.css',
                 'resources/js/adminTransaksi.js',
+                'resources/css/memberRiwayat.css',
+                'resources/js/memberRiwayat.js',
 
                 'resources/css/adminLaporan.css',
                 'resources/js/adminLaporan.js',
 
                 'resources/css/adminProfile.css',
                 'resources/js/adminProfile.js',
+                'resources/css/memberProfile.css',
+                'resources/js/memberProfile.js',
             ],
 
             refresh: true,

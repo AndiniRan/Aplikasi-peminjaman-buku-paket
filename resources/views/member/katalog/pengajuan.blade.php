@@ -18,97 +18,112 @@
             <p>Pastikan data peminjaman sudah benar sebelum diajukan.</p>
         </div>
 
-        <div class="member-detail-form">
-            <div class="member-detail-row">
-                <label>Nama Member</label>
+        @if(session('error'))
+            <div class="member-detail-alert error">
+                <i class="bi bi-exclamation-circle"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
 
-                <div class="member-detail-field">
-                    <span>
-                        {{ auth()->user()->name }}
-                    </span>
+        <form action="{{ route('member.pengajuan.store') }}" method="POST">
+            @csrf
 
-                    <small>(otomatis)</small>
+            <input type="hidden" name="buku_id" value="{{ $buku->id }}">
+
+            <div class="member-detail-form">
+                <div class="member-detail-row">
+                    <label>Nama Member</label>
+
+                    <div class="member-detail-field">
+                        <span>
+                            {{ auth()->user()->name }}
+                        </span>
+
+                        <small>(otomatis)</small>
+                    </div>
+                </div>
+
+                <div class="member-detail-row">
+                    <label>Kelas</label>
+
+                    <div class="member-detail-field">
+                        <span>
+                            {{ auth()->user()->kelas ?? '-' }}
+                        </span>
+
+                        <small>(otomatis)</small>
+                    </div>
+                </div>
+
+                <div class="member-detail-row">
+                    <label>Judul Buku</label>
+
+                    <div class="member-detail-field">
+                        <span>
+                            {{ $buku->judul }}
+                        </span>
+
+                        <small>(otomatis)</small>
+                    </div>
+                </div>
+
+                <div class="member-detail-row">
+                    <label>Kategori</label>
+
+                    <div class="member-detail-field">
+                        <span>
+                            {{ $buku->kategori->nama_kategori ?? '-' }}
+                        </span>
+
+                        <small>(otomatis)</small>
+                    </div>
+                </div>
+
+                <div class="member-detail-row member-detail-gap">
+                    <label>Stok Tersedia</label>
+
+                    <div class="member-detail-field readonly">
+                        <span>
+                            {{ $buku->stok_tersedia }}
+                        </span>
+
+                        <small>(readonly)</small>
+                    </div>
+                </div>
+
+                <div class="member-detail-row">
+                    <label>Tanggal Pengajuan</label>
+
+                    <div class="member-detail-field">
+                        <span>
+                            {{ now()->format('d-m-Y') }}
+                        </span>
+
+                        <small>(otomatis)</small>
+                    </div>
+                </div>
+
+                <div class="member-detail-row">
+                    <label>Status</label>
+
+                    <div class="member-detail-field readonly">
+                        <span>Menunggu</span>
+
+                        <small>(readonly)</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="member-detail-row">
-                <label>Kelas</label>
-                <div class="member-detail-field">
-                    <span>
-                        {{ auth()->user()->kelas ?? '-' }}
-                    </span>
+            <div class="member-detail-actions">
+                <a href="{{ route('member.katalog.show', $buku) }}" class="member-detail-cancel">
+                    Batal
+                </a>
 
-                    <small>(otomatis)</small>
-                </div>
+                <button type="submit" class="member-detail-submit">
+                    Ajukan
+                </button>
             </div>
-
-            <div class="member-detail-row">
-                <label>Judul Buku</label>
-                <div class="member-detail-field">
-                    <span>
-                        {{ $buku->judul }}
-                    </span>
-
-                    <small>(otomatis)</small>
-                </div>
-            </div>
-
-            <div class="member-detail-row">
-                <label>Kategori</label>
-
-                <div class="member-detail-field">
-                    <span>
-                        {{ $buku->kategori->nama_kategori ?? '-' }}
-                    </span>
-
-                    <small>(otomatis)</small>
-                </div>
-            </div>
-
-            <div class="member-detail-row member-detail-gap">
-                <label>Stok Tersedia</label>
-
-                <div class="member-detail-field readonly">
-                    <span>
-                        {{ $buku->stok_tersedia }}
-                    </span>
-
-                    <small>(readonly)</small>
-                </div>
-            </div>
-
-            <div class="member-detail-row">
-                <label>Tanggal Pengajuan</label>
-
-                <div class="member-detail-field">
-                    <span>
-                        {{ now()->format('d-m-Y') }}
-                    </span>
-
-                    <small>(otomatis)</small>
-                </div>
-            </div>
-
-            <div class="member-detail-row">
-                <label>Status</label>
-
-                <div class="member-detail-field readonly">
-                    <span>Menunggu</span>
-
-                    <small>(readonly)</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="member-detail-actions">
-            <a href="{{ route('member.katalog.show', $buku) }}" class="member-detail-cancel">
-                Batal
-            </a>
-
-            <button type="button" class="member-detail-submit">
-                Ajukan
-            </button>
-        </div>
+        </form>
     </div>
 </div>
 

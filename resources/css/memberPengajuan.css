@@ -71,7 +71,7 @@
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 10px;
     margin-top: 22px;
     padding: 18px;
     border: 1px solid #d5eaf8;
@@ -91,7 +91,6 @@
     font-weight: 600;
 }
 
-/* STATUS FILTER */
 .pengajuan-filter-select {
     position: relative;
     width: 175px;
@@ -107,7 +106,6 @@
     padding: 0 12px;
     border: 1px solid #82bce6;
     border-radius: 6px;
-    outline: none;
     background: #ffffff;
     color: #348fd0;
     font-family: inherit;
@@ -115,23 +113,12 @@
     cursor: pointer;
 }
 
-.pengajuan-filter-button:hover {
-    border-color: #5faee4;
-}
-
 .pengajuan-filter-button i {
-    color: #348fd0;
     font-size: 11px;
-    transition: transform 0.2s ease;
 }
 
 .pengajuan-filter-select.open .pengajuan-filter-button {
     border-color: #41a4e8;
-    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
-}
-
-.pengajuan-filter-select.open .pengajuan-filter-button i {
-    transform: rotate(180deg);
 }
 
 .pengajuan-filter-options {
@@ -145,7 +132,6 @@
     border: 1px solid #82bce6;
     border-radius: 6px;
     background: #ffffff;
-    box-shadow: 0 5px 12px rgba(46, 78, 102, 0.12);
 }
 
 .pengajuan-filter-select.open .pengajuan-filter-options {
@@ -155,8 +141,6 @@
 .pengajuan-filter-options button {
     width: 100%;
     height: 34px;
-    display: flex;
-    align-items: center;
     padding: 0 10px;
     border: 0;
     border-radius: 4px;
@@ -174,170 +158,13 @@
 
 .pengajuan-filter-options button.active {
     background: #dceeff;
-    color: #258ad0;
     font-weight: 600;
 }
 
-/* DATE PICKER */
-.pengajuan-date-picker {
-    position: relative;
-    width: 175px;
-}
-
-.pengajuan-date-button {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 0 12px;
-    border: 1px solid #82bce6;
-    border-radius: 6px;
-    outline: none;
-    background: #ffffff;
-    color: #348fd0;
-    font-family: inherit;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.pengajuan-date-button:hover {
-    border-color: #5faee4;
-}
-
-.pengajuan-date-picker.open .pengajuan-date-button {
-    border-color: #41a4e8;
-    box-shadow: 0 0 0 3px rgba(65, 164, 232, 0.10);
-}
-
-.pengajuan-date-button span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.pengajuan-date-button i {
-    color: #348fd0;
-    font-size: 16px;
-}
-
-.pengajuan-calendar {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    z-index: 300;
-    width: 280px;
-    display: none;
-    padding: 12px;
-    border: 1px solid #82bce6;
-    border-radius: 10px;
-    background: #ffffff;
-    box-shadow: 0 8px 24px rgba(46, 78, 102, 0.15);
-}
-
-.pengajuan-date-picker.open .pengajuan-calendar {
-    display: block;
-    animation: pengajuanCalendarOpen 0.18s ease;
-}
-
-.pengajuan-calendar-header {
-    display: grid;
-    grid-template-columns: 32px 1fr 32px;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.pengajuan-calendar-header strong {
-    color: #296aa1;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
-}
-
-.pengajuan-calendar-header button {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: 0;
-    border-radius: 6px;
-    background: transparent;
-    color: #348fd0;
-    cursor: pointer;
-}
-
-.pengajuan-calendar-header button:hover {
-    background: #edf7fd;
-}
-
-.pengajuan-calendar-days,
-.pengajuan-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 3px;
-}
-
-.pengajuan-calendar-days {
-    margin-bottom: 5px;
-}
-
-.pengajuan-calendar-days span {
-    height: 27px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #7b9db5;
-    font-size: 10px;
-    font-weight: 600;
-}
-
-.pengajuan-calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: 0;
-    border-radius: 6px;
-    background: transparent;
-    color: #39454d;
-    font-family: inherit;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.pengajuan-calendar-day:hover {
-    background: #edf7fd;
-    color: #258bd0;
-}
-
-.pengajuan-calendar-day.today {
-    color: #258bd0;
-    font-weight: 700;
-}
-
-.pengajuan-calendar-day.selected {
-    background: #349ee8;
-    color: #ffffff;
-    font-weight: 700;
-}
-
-.pengajuan-calendar-empty {
-    aspect-ratio: 1;
-}
-
-/* FILTER ACTIONS */
 .pengajuan-filter-actions {
     display: flex;
-    align-items: center;
-    gap: 9px;
 }
 
-.pengajuan-btn-filter,
 .pengajuan-btn-refresh {
     height: 40px;
     display: inline-flex;
@@ -345,38 +172,23 @@
     justify-content: center;
     gap: 7px;
     padding: 0 15px;
+    border: 1px solid #329ce9;
     border-radius: 6px;
+    background: #329ce9;
+    color: #ffffff;
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
     text-decoration: none;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-.pengajuan-btn-filter {
-    border: 1px solid #329ce9;
-    background: #329ce9;
-    color: #ffffff;
-}
-
-.pengajuan-btn-refresh {
-    border: 1px solid #66afe2;
-    background: #ffffff;
-    color: #348fd0;
-}
-
-.pengajuan-btn-filter:hover {
-    background: #278ed8;
 }
 
 .pengajuan-btn-refresh:hover {
-    background: #eef8ff;
+    background: #278ed8;
+    color: #ffffff;
 }
 
 /* CONTROL */
 .pengajuan-control-row {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -412,14 +224,6 @@
     font-family: inherit;
     font-size: 14px;
     cursor: pointer;
-}
-
-.entries-filter-button i {
-    font-size: 11px;
-}
-
-.entries-filter-select.open .entries-filter-button {
-    border-color: #41a4e8;
 }
 
 .entries-filter-options {
@@ -586,7 +390,7 @@
     white-space: nowrap;
 }
 
-/* STATUS TABLE */
+/* STATUS */
 .pengajuan-status {
     min-width: 92px;
     display: inline-flex;
@@ -631,9 +435,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
     border: 0;
     border-radius: 7px;
     cursor: pointer;
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(39, 171, 112, 0.05);
+    transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease,
+        background-color 0.28s ease,
+        color 0.28s ease;
 }
 
 .pengajuan-action-btn.view {
@@ -642,7 +454,12 @@
 }
 
 .pengajuan-action-btn.view:hover {
-    background: #bcefdc;
+    transform: translateY(-1px);
+}
+
+.pengajuan-action-btn.view:active {
+    transform: translateY(0);
+    transition-duration: 0.1s;
 }
 
 .pengajuan-action-btn i {
@@ -677,7 +494,7 @@
     font-size: 12px;
 }
 
-/* TABLE FOOTER */
+/* FOOTER */
 .pengajuan-table-footer {
     display: flex;
     align-items: center;
@@ -691,7 +508,6 @@
     font-size: 13px;
 }
 
-/* PAGINATION */
 .pengajuan-pagination {
     display: flex;
     align-items: center;
@@ -714,10 +530,6 @@
     cursor: pointer;
 }
 
-.pengajuan-page-button:hover:not(:disabled) {
-    background: #edf7fd;
-}
-
 .pengajuan-page-button.active {
     border-color: #349ee8;
     background: #349ee8;
@@ -726,7 +538,6 @@
 
 .pengajuan-page-button:disabled {
     opacity: 0.45;
-    cursor: default;
 }
 
 /* MODAL */
@@ -773,6 +584,7 @@
 
 /* MODAL HEADER */
 .pengajuan-modal-header {
+    flex: 0 0 auto;
     min-height: 59px;
     display: flex;
     align-items: center;
@@ -799,15 +611,17 @@
 
 /* MODAL BODY */
 .pengajuan-modal-body {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-x: hidden;
     overflow-y: auto;
-    padding: 21px 36px 11px;
-
+    padding: 21px 36px 18px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(77, 160, 219, 0.45) transparent;
+    scrollbar-color: rgba(77, 160, 219, 0.55) transparent;
 }
 
 .pengajuan-modal-body::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 .pengajuan-modal-body::-webkit-scrollbar-track {
@@ -815,22 +629,29 @@
 }
 
 .pengajuan-modal-body::-webkit-scrollbar-thumb {
-    background: rgba(77, 160, 219, 0.45);
+    background: rgba(77, 160, 219, 0.55);
     border-radius: 20px;
 }
 
+.pengajuan-modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(77, 160, 219, 0.75);
+}
+
+/* DETAIL LAYOUT */
 .pengajuan-detail-layout {
+    width: 100%;
     display: grid;
     grid-template-columns: 225px minmax(0, 1fr);
     gap: 31px;
-    align-items: stretch;
+    align-items: start;
 }
 
 /* BOOK */
 .pengajuan-book-preview {
     min-width: 0;
+    width: 100%;
     align-self: start;
-    padding: 11px 12px 10px;
+    padding: 11px 12px 13px;
     border: 1px solid #62b8f3;
     border-radius: 8px;
     background: #e9f6ff;
@@ -848,9 +669,8 @@
 .pengajuan-cover-wrapper {
     width: 132px;
     height: 180px;
-    margin: 0 auto 8px;
+    margin: 0 auto 10px;
     overflow: hidden;
-    border-radius: 0;
     background: #ffffff;
 }
 
@@ -873,11 +693,14 @@
 }
 
 .pengajuan-book-preview h4:not(.pengajuan-book-label) {
-    margin: 0 0 7px;
+    width: 100%;
+    margin: 0 0 9px;
+    overflow-wrap: anywhere;
+    word-break: normal;
     color: #111111;
     font-size: 16px;
     font-weight: 700;
-    line-height: 1.35;
+    line-height: 1.4;
 }
 
 .pengajuan-book-preview > p {
@@ -885,33 +708,43 @@
 }
 
 .pengajuan-book-meta {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     color: #596269;
     font-size: 14px;
-    line-height: 1.35;
+    line-height: 1.4;
 }
 
 .pengajuan-book-meta > div {
+    width: 100%;
     display: grid;
     grid-template-columns: 65px 7px minmax(0, 1fr);
     gap: 2px;
     align-items: start;
 }
 
+.pengajuan-book-meta > div > span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
 .pengajuan-book-meta b {
     font-weight: 400;
 }
 
-/* DETAIL */
+/* DETAIL CONTENT */
 .pengajuan-detail-content {
     min-width: 0;
+    width: 100%;
     padding-left: 15px;
     border-left: 1px solid #54b1ef;
 }
 
 .pengajuan-detail-section {
+    width: 100%;
     overflow: visible;
     border: 0;
 }
@@ -921,15 +754,19 @@
 }
 
 .pengajuan-detail-list {
+    width: 100%;
     padding: 0;
 }
 
+/* DETAIL ROW */
 .pengajuan-detail-row {
+    width: 100%;
     min-height: 52px;
     display: grid;
     grid-template-columns: 27px 150px 9px minmax(0, 1fr);
     align-items: center;
     gap: 5px;
+    padding: 8px 0;
     border-bottom: 1px solid #6dbbf0;
 }
 
@@ -944,11 +781,11 @@
 }
 
 .pengajuan-detail-label {
+    min-width: 0;
     color: #555b60;
     font-size: 15px;
     font-weight: 500;
-    line-height: 1.3;
-    white-space: nowrap;
+    line-height: 1.35;
 }
 
 .pengajuan-detail-separator {
@@ -959,18 +796,20 @@
 
 .pengajuan-detail-value {
     min-width: 0;
-    overflow: hidden;
     color: #666b70;
     font-size: 15px;
     font-weight: 400;
-    line-height: 1.3;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
-/* DETAIL STATUS */
+/* STATUS DETAIL */
 #detailStatus {
     min-width: 96px;
+    width: fit-content;
+    max-width: 100%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -979,6 +818,7 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
+    white-space: nowrap;
 }
 
 #detailStatus.menunggu {
@@ -1008,14 +848,54 @@
     color: #ef3945;
 }
 
-/* STATUS CONTENT */
-.pengajuan-figma-state {
+/* STATUS MESSAGE */
+.pengajuan-state-box {
     display: none;
-    margin-top: 10px;
+    width: 100%;
+    margin-top: 14px;
 }
 
-.pengajuan-figma-state.active {
+.pengajuan-state-box.active {
     display: block;
+    animation: pengajuanFade 0.18s ease;
+}
+
+/* NORMAL MESSAGE */
+.pengajuan-state-box:not(#sectionDitolak) {
+    min-height: 72px;
+    padding: 14px 16px;
+    border: 1px solid #5bb0ec;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #3c9ee7;
+    box-shadow:
+        inset 0 0 0 5px #edf7ff,
+        0 2px 6px rgba(60, 158, 231, 0.07);
+}
+
+.pengajuan-state-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #3c9ee7;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.pengajuan-state-title i {
+    flex: 0 0 auto;
+    color: #3c9ee7;
+    font-size: 18px;
+}
+
+.pengajuan-state-box > p {
+    margin: 6px 0 0 27px;
+    color: #5c9fce;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
 }
 
 /* MENUNGGU */
@@ -1023,163 +903,107 @@
     display: block;
 }
 
-#sectionMenunggu .pengajuan-reject-title {
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 10px;
-    border: 1px solid #f1747c;
-    border-radius: 6px 6px 0 0;
-    background: #ffc9cd;
-    color: #f01925;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-#sectionMenunggu .pengajuan-reject-title i {
-    font-size: 16px;
-}
-
-#sectionMenunggu textarea {
-    width: 100%;
-    height: 68px;
+/* SIAP */
+#sectionSiap.active {
     display: block;
-    resize: none;
-    padding: 12px 13px;
-    border: 1px solid #59acf0;
-    border-top: 0;
-    border-radius: 0;
-    outline: none;
-    background: #eef7ff;
-    color: #555f67;
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.4;
 }
 
-#sectionMenunggu textarea::placeholder {
-    color: #3f9ce4;
-    opacity: 1;
-}
-
-#sectionMenunggu textarea:focus {
-    box-shadow: inset 0 0 0 1px rgba(59, 161, 233, 0.08);
-}
-
-#sectionMenunggu small {
-    min-height: 29px;
-    display: flex;
-    align-items: center;
-    padding: 4px 7px;
-    border: 1px solid #59acf0;
-    border-top: 0;
-    border-radius: 0 0 6px 6px;
-    background: #ffffff;
-    color: #52575b;
-    font-size: 11px;
-    line-height: 1.25;
-}
-
-/* SIAP & DISETUJUI MESSAGE */
-#sectionSiap.active,
+/* DISETUJUI */
 #sectionDisetujui.active {
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    padding: 10px 12px;
-    border: 1px solid #5bb0ec;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #3c9ee7;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.45;
-}
-
-#sectionSiap.active::before,
-#sectionDisetujui.active::before {
-    content: "";
-    position: absolute;
-}
-
-#sectionSiap.active,
-#sectionDisetujui.active {
-    box-shadow: inset 0 0 0 5px #edf7ff;
+    display: block;
 }
 
 /* DITOLAK */
 #sectionDitolak.active {
     display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
-#sectionDitolak .pengajuan-reject-title {
-    min-height: 36px;
+.pengajuan-reject-title {
+    min-height: 40px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 5px 10px;
+    gap: 9px;
+    padding: 8px 12px;
     border: 1px solid #f1747c;
-    border-radius: 6px 6px 0 0;
+    border-radius: 7px 7px 0 0;
     background: #ffc9cd;
     color: #f01925;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
 }
 
-#sectionDitolak .pengajuan-reject-title i {
-    font-size: 16px;
+.pengajuan-reject-title i {
+    flex: 0 0 auto;
+    font-size: 17px;
 }
 
 .pengajuan-reject-result {
+    width: 100%;
     min-height: 76px;
+    max-height: 180px;
+    overflow-x: hidden;
+    overflow-y: auto;
     padding: 14px 13px;
     border: 1px solid #59acf0;
     border-top: 0;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 7px 7px;
     background: #eef7ff;
     color: #3e9be2;
     font-size: 14px;
     font-weight: 400;
-    line-height: 1.45;
+    line-height: 1.55;
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(77, 160, 219, 0.55) transparent;
 }
 
-.pengajuan-reject-text {
-    white-space: pre-wrap;
+.pengajuan-reject-result::-webkit-scrollbar {
+    width: 5px;
 }
 
-/* ACTION FORM */
-.pengajuan-action-form {
-    display: none;
-    margin: 0;
+.pengajuan-reject-result::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.pengajuan-action-form.active {
-    display: block;
+.pengajuan-reject-result::-webkit-scrollbar-thumb {
+    background: rgba(77, 160, 219, 0.55);
+    border-radius: 20px;
+}
+
+@keyframes pengajuanFade {
+    from {
+        opacity: 0;
+        transform: translateY(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* MODAL FOOTER */
 .pengajuan-modal-footer {
+    flex: 0 0 auto;
+    min-height: 61px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 12px;
-    min-height: 61px;
     padding: 8px 36px 15px;
     border-top: 0;
     background: #ffffff;
 }
 
-.pengajuan-modal-footer-left,
-.pengajuan-modal-footer-right {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
+/* MODAL BUTTON */
 .pengajuan-modal-btn {
-    min-width: auto;
+    min-width: 88px;
     height: 36px;
     display: inline-flex;
     align-items: center;
@@ -1193,73 +1017,47 @@
     font-weight: 500;
     line-height: 1;
     cursor: pointer;
-}
-
-.pengajuan-modal-btn.ready,
-.pengajuan-modal-btn.taken {
-    border: 1px solid #e3a557;
-    background: #fff7ee;
-    color: #d38b27;
-}
-
-.pengajuan-modal-btn.reject {
-    min-width: 102px;
-    border: 1px solid #ec858c;
-    background: #ffe2e4;
-    color: #e7434c;
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(41, 109, 155, 0.05);
+    transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease,
+        background-color 0.28s ease,
+        border-color 0.28s ease,
+        color 0.28s ease;
 }
 
 .pengajuan-modal-btn.close {
-    min-width: 88px;
     border: 1px solid #5eafe9;
     background: #eef8ff;
     color: #3a9fe7;
 }
 
-/* BUTTON HOVER */
-.pengajuan-modal-btn.ready:hover,
-.pengajuan-modal-btn.taken:hover {
-    background: #fff2e1;
-}
-
-.pengajuan-modal-btn.reject:hover {
-    background: #ffd7da;
-}
-
 .pengajuan-modal-btn.close:hover {
-    background: #e1f3ff;
+    transform: translateY(-2px);
+    border-color: #4fa7e5;
+    background: #e2f4ff;
+    box-shadow: 0 5px 12px rgba(58, 159, 231, 0.13);
 }
 
-/* FOOTER STATUS DISETUJUI & DITOLAK */
-.pengajuan-modal-dialog:has(#sectionDisetujui.active) .pengajuan-modal-footer,
-.pengajuan-modal-dialog:has(#sectionDitolak.active) .pengajuan-modal-footer {
-    justify-content: flex-start;
+.pengajuan-modal-btn.close:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(41, 109, 155, 0.06);
+    transition-duration: 0.1s;
 }
 
-.pengajuan-modal-dialog:has(#sectionDisetujui.active) .pengajuan-modal-footer-right,
-.pengajuan-modal-dialog:has(#sectionDitolak.active) .pengajuan-modal-footer-right {
-    margin-left: 0;
-}
-
-.pengajuan-modal-dialog:has(#sectionDisetujui.active) .pengajuan-modal-footer-left,
-.pengajuan-modal-dialog:has(#sectionDitolak.active) .pengajuan-modal-footer-left {
-    display: none;
-}
-
-/* DITOLAK - TAMPILKAN BATAS PENGAMBILAN JIKA ROW TERSEDIA */
-.pengajuan-modal-dialog:has(#sectionDitolak.active) #rowTanggalDisiapkan {
-    display: none !important;
-}
-
-.pengajuan-modal-dialog:has(#sectionDitolak.active) #rowTanggalDiambil {
-    display: none !important;
+.pengajuan-modal-btn.close:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(58, 159, 231, 0.12),
+        0 4px 10px rgba(58, 159, 231, 0.10);
 }
 
 /* ANIMATION */
-@keyframes pengajuanCalendarOpen {
+@keyframes pengajuanFade {
     from {
         opacity: 0;
-        transform: translateY(-4px);
+        transform: translateY(3px);
     }
 
     to {
@@ -1270,8 +1068,27 @@
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-    .pengajuan-modal-dialog {
-        width: 720px;
+    .pengajuan-detail-layout {
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    .pengajuan-detail-content {
+        padding-left: 18px;
+    }
+
+    .pengajuan-detail-row {
+        grid-template-columns: 26px 140px 9px minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    .pengajuan-book-preview {
+        width: 100%;
+    }
+
+    .pengajuan-cover-wrapper {
+        width: 125px;
+        height: 170px;
     }
 }
 
@@ -1285,8 +1102,7 @@
     }
 
     .pengajuan-filter-group,
-    .pengajuan-filter-select,
-    .pengajuan-date-picker {
+    .pengajuan-filter-select {
         width: 100%;
     }
 
@@ -1294,9 +1110,14 @@
         width: 100%;
     }
 
+    .pengajuan-btn-refresh {
+        width: 100%;
+    }
+
     .pengajuan-control-row {
         align-items: stretch;
         flex-direction: column;
+        gap: 12px;
     }
 
     .pengajuan-search {
@@ -1306,44 +1127,87 @@
     .pengajuan-table-footer {
         align-items: flex-start;
         flex-direction: column;
+        gap: 12px;
+    }
+
+    .pengajuan-pagination {
+        flex-wrap: wrap;
+    }
+
+    /* MODAL */
+    .pengajuan-modal {
+        padding: 16px;
     }
 
     .pengajuan-modal-dialog {
         width: 620px;
-    }
-
-    .pengajuan-detail-layout {
-        grid-template-columns: 205px minmax(0, 1fr);
-        gap: 18px;
+        max-width: 100%;
+        max-height: calc(100vh - 32px);
     }
 
     .pengajuan-modal-header {
+        flex-shrink: 0;
         padding: 0 24px;
     }
 
-    .pengajuan-modal-body {
-        padding-right: 24px;
-        padding-left: 24px;
+    .pengajuan-modal-header h3 {
+        font-size: 22px;
     }
 
-    .pengajuan-modal-footer {
-        padding-right: 24px;
-        padding-left: 24px;
+    .pengajuan-modal-body {
+        min-height: 0;
+        overflow-y: auto;
+        padding: 20px 24px 14px;
+    }
+
+    .pengajuan-detail-layout {
+        grid-template-columns: 200px minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .pengajuan-book-preview {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .pengajuan-cover-wrapper {
+        width: 120px;
+        height: 164px;
     }
 
     .pengajuan-detail-content {
-        padding-left: 13px;
+        min-width: 0;
+        padding-left: 14px;
+        border-top: 0;
+        border-left: 1px solid #54b1ef;
     }
 
     .pengajuan-detail-row {
-        grid-template-columns: 25px 135px 8px minmax(0, 1fr);
+        min-height: 52px;
+        grid-template-columns: 25px 130px 8px minmax(0, 1fr);
         gap: 4px;
+    }
+
+    .pengajuan-detail-row > i {
+        font-size: 19px;
     }
 
     .pengajuan-detail-label,
     .pengajuan-detail-separator,
     .pengajuan-detail-value {
         font-size: 14px;
+    }
+
+    .pengajuan-modal-footer {
+        flex-shrink: 0;
+        padding: 10px 24px 15px;
+    }
+
+    .pengajuan-modal-btn {
+        height: 36px;
+        padding: 0 14px;
+        font-size: 15px;
     }
 }
 
@@ -1356,6 +1220,7 @@
         width: 100%;
         max-width: 100%;
         max-height: calc(100vh - 20px);
+        border-radius: 8px;
     }
 
     .pengajuan-modal-header {
@@ -1364,33 +1229,59 @@
     }
 
     .pengajuan-modal-header h3 {
-        font-size: 21px;
+        font-size: 20px;
+        line-height: 1.25;
     }
 
     .pengajuan-modal-body {
-        padding: 17px 18px 12px;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 17px 18px 14px;
     }
 
     .pengajuan-detail-layout {
         grid-template-columns: 1fr;
-        gap: 17px;
+        gap: 18px;
     }
 
     .pengajuan-book-preview {
         width: 100%;
-        max-width: 260px;
+        max-width: 280px;
         margin: 0 auto;
     }
 
+    .pengajuan-book-label {
+        font-size: 19px;
+    }
+
+    .pengajuan-cover-wrapper {
+        width: 130px;
+        height: 176px;
+    }
+
+    .pengajuan-book-preview h4:not(.pengajuan-book-label) {
+        font-size: 15px;
+    }
+
+    .pengajuan-book-meta {
+        font-size: 13px;
+    }
+
     .pengajuan-detail-content {
-        padding-top: 8px;
+        padding-top: 10px;
         padding-left: 0;
         border-top: 1px solid #54b1ef;
         border-left: 0;
     }
 
     .pengajuan-detail-row {
-        grid-template-columns: 25px 140px 9px minmax(0, 1fr);
+        min-height: 52px;
+        grid-template-columns: 25px 135px 8px minmax(0, 1fr);
+        gap: 4px;
+    }
+
+    .pengajuan-detail-row > i {
+        font-size: 18px;
     }
 
     .pengajuan-detail-label,
@@ -1399,9 +1290,43 @@
         font-size: 14px;
     }
 
+    .pengajuan-detail-value {
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #detailStatus {
+        font-size: 13px;
+    }
+
+    #detailStatus.siap::after {
+        font-size: 13px;
+    }
+
+    .pengajuan-figma-state {
+        margin-top: 12px;
+    }
+
+    #sectionMenunggu.active,
+    #sectionSiap.active,
+    #sectionDisetujui.active,
+    #sectionDitolak.active {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .pengajuan-reject-result {
+        font-size: 14px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
     .pengajuan-modal-footer {
-        min-height: 62px;
-        padding: 8px 18px 13px;
+        min-height: 60px;
+        flex-shrink: 0;
+        padding: 9px 18px 13px;
     }
 
     .pengajuan-modal-footer-left,
@@ -1411,12 +1336,12 @@
 
     .pengajuan-modal-btn {
         height: 36px;
-        padding: 0 11px;
+        padding: 0 13px;
         font-size: 14px;
     }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 520px) {
     .pengajuan-card {
         padding: 14px;
     }
@@ -1426,24 +1351,53 @@
     }
 
     .pengajuan-filter-form {
+        flex-direction: column;
         padding: 14px;
     }
 
-    .pengajuan-filter-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .pengajuan-btn-filter,
+    .pengajuan-filter-actions,
     .pengajuan-btn-refresh {
         width: 100%;
-        padding: 0 8px;
-        font-size: 12px;
+    }
+
+    .pengajuan-show-control {
+        flex-wrap: wrap;
+    }
+
+    .pengajuan-modal {
+        padding: 8px;
+    }
+
+    .pengajuan-modal-dialog {
+        max-height: calc(100vh - 16px);
+    }
+
+    .pengajuan-modal-header {
+        min-height: 58px;
+        padding: 0 16px;
+    }
+
+    .pengajuan-modal-header h3 {
+        font-size: 19px;
+    }
+
+    .pengajuan-modal-body {
+        padding: 16px;
+    }
+
+    .pengajuan-book-preview {
+        max-width: 260px;
+    }
+
+    .pengajuan-cover-wrapper {
+        width: 125px;
+        height: 170px;
     }
 
     .pengajuan-detail-row {
         min-height: 52px;
-        grid-template-columns: 23px 120px 7px minmax(0, 1fr);
+        grid-template-columns: 24px 125px 8px minmax(0, 1fr);
+        gap: 4px;
     }
 
     .pengajuan-detail-label,
@@ -1453,7 +1407,78 @@
     }
 
     .pengajuan-modal-footer {
-        flex-wrap: wrap;
-        gap: 8px;
+        padding: 10px 16px 13px;
+    }
+
+    .pengajuan-modal-btn {
+        min-width: 88px;
+        height: 36px;
+        padding: 0 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 430px) {
+    .pengajuan-modal-header {
+        min-height: 56px;
+        padding: 0 14px;
+    }
+
+    .pengajuan-modal-header h3 {
+        font-size: 18px;
+    }
+
+    .pengajuan-modal-body {
+        padding: 14px;
+    }
+
+    .pengajuan-book-preview {
+        max-width: 240px;
+        padding: 11px;
+    }
+
+    .pengajuan-cover-wrapper {
+        width: 118px;
+        height: 160px;
+    }
+
+    .pengajuan-detail-row {
+        min-height: 50px;
+        grid-template-columns: 22px 112px 7px minmax(0, 1fr);
+        gap: 3px;
+    }
+
+    .pengajuan-detail-row > i {
+        font-size: 17px;
+    }
+
+    .pengajuan-detail-label,
+    .pengajuan-detail-separator,
+    .pengajuan-detail-value {
+        font-size: 12.5px;
+    }
+
+    #detailStatus {
+        min-width: 84px;
+        padding: 5px 9px;
+        font-size: 12px;
+    }
+
+    #detailStatus.siap {
+        min-width: 100px;
+    }
+
+    #detailStatus.siap::after {
+        font-size: 12px;
+    }
+
+    .pengajuan-modal-footer {
+        padding: 9px 14px 12px;
+    }
+
+    .pengajuan-modal-btn {
+        height: 35px;
+        padding: 0 11px;
+        font-size: 13px;
     }
 }

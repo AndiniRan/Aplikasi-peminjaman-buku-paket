@@ -522,114 +522,144 @@
     background: rgba(30, 45, 55, 0.28);
 }
 
+/* MODAL BOX */
 .transaksi-modal-box {
     position: relative;
     z-index: 1;
-    width: min(680px, 100%);
+    width: min(720px, 100%);
     max-height: calc(100vh - 40px);
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background: #ffffff;
-    border: 1px solid #84c4ee;
-    border-radius: 12px;
+    border: 1px solid #55adf0;
+    border-radius: 10px;
     box-shadow: 0 12px 35px rgba(38, 73, 99, 0.16);
 }
 
+/* MODAL HEADER */
 .transaksi-modal-header {
-    min-height: 58px;
+    flex-shrink: 0;
+    min-height: 64px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 0 22px;
+    padding: 0 28px;
     border-bottom: 1px solid #85c6ef;
+    background: #ffffff;
 }
 
 .transaksi-modal-header h3 {
     margin: 0;
-    color: #555b60;
-    font-size: 20px;
+    color: #33383c;
+    font-size: 23px;
     font-weight: 700;
+    line-height: 1.2;
 }
 
+/* HILANGKAN TOMBOL X */
 .transaksi-modal-x {
-    width: 34px;
-    height: 34px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: 0;
-    border-radius: 7px;
-    background: transparent;
-    color: #479edc;
-    font-size: 18px;
-    cursor: pointer;
+    display: none !important;
 }
 
+/* BAGIAN YANG BOLEH SCROLL */
 .transaksi-modal-content {
+    min-height: 0;
     display: grid;
-    grid-template-columns: 210px 1px minmax(0, 1fr);
-    gap: 20px;
-    padding: 20px 22px;
+    grid-template-columns: 220px 1px minmax(0, 1fr);
+    gap: 24px;
+    padding: 22px 28px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
+/* SCROLLBAR ISI MODAL */
+.transaksi-modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(77, 160, 219, 0.45) transparent;
+}
+
+.transaksi-modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.transaksi-modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.transaksi-modal-content::-webkit-scrollbar-thumb {
+    background: rgba(77, 160, 219, 0.45);
+    border-radius: 20px;
+}
+
+/* DETAIL KIRI */
 .transaksi-detail-left {
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
+/* CARD BUKU & MEMBER */
 .transaksi-book-detail,
 .transaksi-member-detail {
-    padding: 12px;
+    padding: 14px;
     border: 1px solid #84c4ee;
     border-radius: 8px;
     background: #f5fbff;
+    box-shadow: 0 1px 4px rgba(49, 151, 219, 0.08);
 }
 
 .transaksi-book-detail h4,
 .transaksi-member-detail h4 {
-    margin: 0 0 10px;
-    color: #555b60;
-    font-size: 15px;
+    margin: 0 0 11px;
+    color: #33383c;
+    font-size: 17px;
     font-weight: 700;
+    line-height: 1.3;
 }
 
+/* COVER BUKU */
 .transaksi-book-detail img {
-    width: 95px;
-    height: 125px;
+    width: 110px;
+    height: 145px;
     display: block;
-    margin: 0 auto 9px;
+    margin: 0 auto 10px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
+/* JUDUL BUKU */
 .transaksi-book-detail > strong {
     display: block;
-    margin-bottom: 9px;
+    margin-bottom: 10px;
     color: #202326;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
     text-align: center;
 }
 
+/* INFO BUKU */
 .transaksi-book-info {
     display: grid;
-    grid-template-columns: 55px 8px 1fr;
-    gap: 3px;
-    margin-top: 5px;
+    grid-template-columns: 62px 8px minmax(0, 1fr);
+    gap: 4px;
+    margin-top: 6px;
     color: #687c89;
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
+/* MEMBER */
 .transaksi-member-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 11px;
 }
 
 .transaksi-member-avatar {
-    width: 43px;
-    height: 43px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -648,49 +678,69 @@
 }
 
 .transaksi-member-avatar i {
-    font-size: 25px;
+    font-size: 27px;
 }
 
 .transaksi-member-row strong {
     color: #202326;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
 }
 
 .transaksi-member-row p {
     margin: 4px 0 0;
     color: #687c89;
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 1.35;
 }
 
+/* GARIS PEMBATAS */
 .transaksi-detail-divider {
     width: 1px;
+    align-self: stretch;
     background: #85c6ef;
 }
 
+/* DETAIL KANAN */
 .transaksi-detail-right {
     min-width: 0;
 }
 
+/* BARIS DETAIL */
 .transaksi-detail-row {
-    min-height: 52px;
+    min-height: 56px;
     display: grid;
-    grid-template-columns: 25px 130px 10px minmax(0, 1fr);
+    grid-template-columns: 28px 140px 10px minmax(0, 1fr);
     align-items: center;
-    gap: 5px;
-    border-bottom: 1px solid #d2e9f8;
-    color: #62686d;
-    font-size: 12px;
+    gap: 6px;
+    border-bottom: 1px solid #b8ddf4;
+    color: #555e64;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .transaksi-detail-row i {
     color: #279be7;
-    font-size: 18px;
+    font-size: 20px;
 }
 
+.transaksi-detail-row span,
+.transaksi-detail-row strong {
+    min-width: 0;
+}
+
+.transaksi-detail-row strong {
+    color: #555e64;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* STATUS */
 .transaksi-detail-status {
-    width: 190px;
+    width: 210px;
     margin-top: 20px;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border: 1px solid #84c4ee;
     border-radius: 7px;
     background: #edf7fe;
@@ -699,43 +749,82 @@
 .transaksi-detail-status > div {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-bottom: 8px;
+    gap: 8px;
+    margin-bottom: 9px;
     color: #59646a;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .transaksi-detail-status i {
     color: #299ce5;
-    font-size: 17px;
+    font-size: 19px;
 }
 
-.transaksi-modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 22px 20px;
-}
-
-.transaksi-close-btn {
+/* BADGE STATUS DI DALAM MODAL */
+.transaksi-detail-status .transaksi-badge {
     min-width: 85px;
-    height: 38px;
+    padding: 6px 11px;
+    font-size: 13px;
+}
+
+/* MODAL FOOTER */
+.transaksi-modal-footer {
+    flex-shrink: 0;
+    min-height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 28px 16px;
+    border-top: 1px solid #d4eaf8;
+    background: #ffffff;
+}
+
+/* TOMBOL TUTUP */
+.transaksi-close-btn {
+    min-width: 92px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 17px;
     border: 1px solid #5aa9e6;
     border-radius: 6px;
     background: #edf7fe;
     color: #3da1ed;
     font-family: inherit;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.2s ease;
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(49, 143, 205, 0.05);
+    transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease,
+        background-color 0.28s ease,
+        border-color 0.28s ease,
+        color 0.28s ease;
 }
 
 .transaksi-close-btn:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    border-color: #4fa7e5;
+    background: #e2f4ff;
+    color: #258fdd;
+    box-shadow: 0 5px 12px rgba(58, 159, 231, 0.13);
 }
 
 .transaksi-close-btn:active {
     transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(49, 143, 205, 0.05);
+    transition-duration: 0.1s;
+}
+
+.transaksi-close-btn:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(58, 159, 231, 0.12),
+        0 4px 10px rgba(58, 159, 231, 0.10);
 }
 
 /* FORM */
@@ -1375,6 +1464,11 @@
     .transaksi-form-card {
         padding: 27px 28px;
     }
+
+    /* DETAIL TRANSAKSI */
+    .transaksi-modal-box {
+        width: min(720px, 100%);
+    }
 }
 
 @media (max-width: 700px) {
@@ -1400,20 +1494,139 @@
         flex-direction: column;
     }
 
+    /* DETAIL TRANSAKSI */
+    .transaksi-modal {
+        padding: 16px;
+    }
+
+    .transaksi-modal-box {
+        width: 100%;
+        max-height: calc(100vh - 32px);
+    }
+
+    .transaksi-modal-header {
+        min-height: 64px;
+        padding: 0 24px;
+    }
+
+    .transaksi-modal-header h3 {
+        font-size: 21px;
+    }
+
+    .transaksi-modal-x {
+        display: none;
+    }
+
     .transaksi-modal-content {
         display: flex;
         flex-direction: column;
+        gap: 20px;
+        padding: 22px 24px;
+    }
+
+    .transaksi-detail-left {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .transaksi-book-detail,
+    .transaksi-member-detail {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .transaksi-book-detail h4,
+    .transaksi-member-detail h4 {
+        margin-bottom: 12px;
+        font-size: 17px;
+    }
+
+    .transaksi-book-detail img {
+        width: 105px;
+        height: 140px;
+    }
+
+    .transaksi-book-detail > strong {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .transaksi-book-info {
+        grid-template-columns: 65px 8px minmax(0, 1fr);
+        gap: 3px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .transaksi-member-row {
+        gap: 12px;
+    }
+
+    .transaksi-member-avatar {
+        width: 48px;
+        height: 48px;
+    }
+
+    .transaksi-member-avatar i {
+        font-size: 27px;
+    }
+
+    .transaksi-member-row strong {
+        font-size: 14px;
+    }
+
+    .transaksi-member-row p {
+        margin-top: 4px;
+        font-size: 13px;
     }
 
     .transaksi-detail-divider {
         width: 100%;
         height: 1px;
+        background: #85c6ef;
+    }
+
+    .transaksi-detail-right {
+        width: 100%;
+    }
+
+    .transaksi-detail-row {
+        min-height: 55px;
+        grid-template-columns: 27px 145px 10px minmax(0, 1fr);
+        gap: 6px;
+        font-size: 14px;
+    }
+
+    .transaksi-detail-row i {
+        font-size: 19px;
     }
 
     .transaksi-detail-status {
         width: 100%;
+        margin-top: 18px;
+        padding: 13px 14px;
     }
 
+    .transaksi-detail-status > div {
+        font-size: 14px;
+    }
+
+    .transaksi-detail-status i {
+        font-size: 18px;
+    }
+
+    .transaksi-modal-footer {
+        padding: 0 24px 22px;
+    }
+
+    .transaksi-close-btn {
+        min-width: 95px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    /* FORM */
     .transaksi-form-row {
         grid-template-columns: 1fr;
         gap: 7px;
@@ -1463,14 +1676,252 @@
         min-width: 0;
     }
 
+    /* DETAIL TRANSAKSI */
     .transaksi-modal {
+        padding: 10px;
+    }
+
+    .transaksi-modal-box {
+        width: 100%;
+        max-height: calc(100vh - 20px);
+        border-radius: 9px;
+    }
+
+    .transaksi-modal-header {
+        min-height: 60px;
+        padding: 0 18px;
+    }
+
+    .transaksi-modal-header h3 {
+        font-size: 19px;
+        line-height: 1.3;
+    }
+
+    .transaksi-modal-x {
+        display: none;
+    }
+
+    .transaksi-modal-content {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+        padding: 18px;
+    }
+
+    .transaksi-detail-left {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .transaksi-book-detail,
+    .transaksi-member-detail {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .transaksi-book-detail h4,
+    .transaksi-member-detail h4 {
+        margin-bottom: 11px;
+        font-size: 16px;
+    }
+
+    .transaksi-book-detail img {
+        width: 100px;
+        height: 132px;
+        margin-bottom: 10px;
+    }
+
+    .transaksi-book-detail > strong {
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .transaksi-book-info {
+        grid-template-columns: 65px 8px minmax(0, 1fr);
+        gap: 3px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .transaksi-member-row {
+        gap: 12px;
+    }
+
+    .transaksi-member-avatar {
+        width: 48px;
+        height: 48px;
+    }
+
+    .transaksi-member-avatar i {
+        font-size: 27px;
+    }
+
+    .transaksi-member-row strong {
+        font-size: 14px;
+    }
+
+    .transaksi-member-row p {
+        margin-top: 4px;
+        font-size: 13px;
+    }
+
+    .transaksi-detail-divider {
+        width: 100%;
+        height: 1px;
+        background: #85c6ef;
+    }
+
+    .transaksi-detail-right {
+        width: 100%;
+    }
+
+    .transaksi-detail-row {
+        min-height: 54px;
+        grid-template-columns: 25px 125px 8px minmax(0, 1fr);
+        gap: 5px;
+        font-size: 13px;
+    }
+
+    .transaksi-detail-row i {
+        font-size: 18px;
+    }
+
+    .transaksi-detail-status {
+        width: 100%;
+        margin-top: 16px;
         padding: 12px;
     }
 
-    .transaksi-modal-header,
-    .transaksi-modal-content,
+    .transaksi-detail-status > div {
+        gap: 7px;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+
+    .transaksi-detail-status i {
+        font-size: 17px;
+    }
+
     .transaksi-modal-footer {
-        padding-left: 16px;
-        padding-right: 16px;
+        display: flex;
+        justify-content: flex-start;
+        padding: 0 18px 18px;
+    }
+
+    .transaksi-close-btn {
+        min-width: 90px;
+        height: 39px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 380px) {
+    /* DETAIL TRANSAKSI */
+    .transaksi-modal {
+        padding: 7px;
+    }
+
+    .transaksi-modal-box {
+        width: 100%;
+        max-height: calc(100vh - 14px);
+    }
+
+    .transaksi-modal-header {
+        min-height: 57px;
+        padding: 0 14px;
+    }
+
+    .transaksi-modal-header h3 {
+        font-size: 18px;
+    }
+
+    .transaksi-modal-x {
+        display: none;
+    }
+
+    .transaksi-modal-content {
+        padding: 15px 14px;
+    }
+
+    .transaksi-detail-left {
+        gap: 11px;
+    }
+
+    .transaksi-book-detail,
+    .transaksi-member-detail {
+        padding: 12px;
+    }
+
+    .transaksi-book-detail h4,
+    .transaksi-member-detail h4 {
+        font-size: 15px;
+    }
+
+    .transaksi-book-detail img {
+        width: 95px;
+        height: 127px;
+    }
+
+    .transaksi-book-detail > strong {
+        font-size: 13px;
+    }
+
+    .transaksi-book-info {
+        grid-template-columns: 60px 7px minmax(0, 1fr);
+        gap: 3px;
+        font-size: 12px;
+    }
+
+    .transaksi-member-avatar {
+        width: 45px;
+        height: 45px;
+    }
+
+    .transaksi-member-avatar i {
+        font-size: 25px;
+    }
+
+    .transaksi-member-row strong {
+        font-size: 13px;
+    }
+
+    .transaksi-member-row p {
+        font-size: 12px;
+    }
+
+    .transaksi-detail-row {
+        min-height: 52px;
+        grid-template-columns: 23px 110px 7px minmax(0, 1fr);
+        gap: 4px;
+        font-size: 12px;
+    }
+
+    .transaksi-detail-row i {
+        font-size: 17px;
+    }
+
+    .transaksi-detail-status {
+        margin-top: 14px;
+        padding: 11px;
+    }
+
+    .transaksi-detail-status > div {
+        font-size: 12px;
+    }
+
+    .transaksi-detail-status i {
+        font-size: 16px;
+    }
+
+    .transaksi-modal-footer {
+        padding: 0 14px 15px;
+    }
+
+    .transaksi-close-btn {
+        min-width: 86px;
+        height: 38px;
+        font-size: 13px;
     }
 }

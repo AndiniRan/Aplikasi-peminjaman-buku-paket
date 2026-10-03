@@ -1,40 +1,41 @@
-@extends('layouts.dashboard')
 
-@section('title', 'Pengajuan Peminjaman')
-@section('page-title', 'Pengajuan Peminjaman')
 
-@vite([
-    'resources/css/adminPengajuan.css',
-    'resources/js/adminPengajuan.js'
-])
+<?php $__env->startSection('title', 'Pengajuan Saya'); ?>
+<?php $__env->startSection('page-title', 'Pengajuan Saya'); ?>
 
-@section('content')
+<?php echo app('Illuminate\Foundation\Vite')([
+    'resources/css/memberPengajuan.css',
+    'resources/js/memberPengajuan.js'
+]); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="pengajuan-page">
 
     <div class="pengajuan-card">
 
         <div class="pengajuan-title">
-            <h2>Daftar seluruh pengajuan peminjaman buku</h2>
+            <h2>Daftar pengajuan peminjaman saya</h2>
         </div>
 
-        @if(session('success'))
+        <?php if(session('success')): ?>
             <div class="pengajuan-alert success">
                 <i class="bi bi-check-circle"></i>
-                <span>{{ session('success') }}</span>
+                <span><?php echo e(session('success')); ?></span>
             </div>
-        @endif
+        <?php endif; ?>
 
-        @if(session('error'))
+        <?php if(session('error')): ?>
             <div class="pengajuan-alert error">
                 <i class="bi bi-exclamation-circle"></i>
-                <span>{{ session('error') }}</span>
+                <span><?php echo e(session('error')); ?></span>
             </div>
-        @endif
+        <?php endif; ?>
 
         <form
-            action="{{ route('admin.pengajuan.index') }}"
+            action="<?php echo e(route('member.pengajuan.index')); ?>"
             method="GET"
             class="pengajuan-filter-form"
+            id="pengajuanStatusForm"
         >
 
             <div class="pengajuan-filter-group">
@@ -48,7 +49,7 @@
                         type="hidden"
                         name="status"
                         id="statusFilterInput"
-                        value="{{ $statusFilter ?? '' }}"
+                        value="<?php echo e($statusFilter ?? ''); ?>"
                     >
 
                     <button
@@ -56,10 +57,7 @@
                         class="pengajuan-filter-button"
                         id="statusFilterButton"
                     >
-                        <span
-                            id="statusFilterText"
-                            data-selected-status="{{ $statusFilter ?? '' }}"
-                        >
+                        <span id="statusFilterText">
                             Semua
                         </span>
 
@@ -76,146 +74,14 @@
                 </div>
             </div>
 
-            <div class="pengajuan-filter-group">
-                <label>Tanggal Awal</label>
-
-                <div class="pengajuan-date-picker" data-date-picker>
-                    <input
-                        type="hidden"
-                        name="tanggal_awal"
-                        value="{{ request()->get('tanggal_awal') }}"
-                        data-date-value
-                    >
-
-                    <button
-                        type="button"
-                        class="pengajuan-date-button"
-                        data-date-button
-                    >
-                        <span data-date-text>Pilih tanggal</span>
-                        <i class="bi bi-calendar3"></i>
-                    </button>
-
-                    <div class="pengajuan-calendar">
-
-                        <div class="pengajuan-calendar-header">
-                            <button
-                                type="button"
-                                data-calendar-prev
-                                aria-label="Bulan sebelumnya"
-                            >
-                                <i class="bi bi-chevron-left"></i>
-                            </button>
-
-                            <strong data-calendar-title></strong>
-
-                            <button
-                                type="button"
-                                data-calendar-next
-                                aria-label="Bulan berikutnya"
-                            >
-                                <i class="bi bi-chevron-right"></i>
-                            </button>
-                        </div>
-
-                        <div class="pengajuan-calendar-days">
-                            <span>Min</span>
-                            <span>Sen</span>
-                            <span>Sel</span>
-                            <span>Rab</span>
-                            <span>Kam</span>
-                            <span>Jum</span>
-                            <span>Sab</span>
-                        </div>
-
-                        <div
-                            class="pengajuan-calendar-grid"
-                            data-calendar-grid
-                        ></div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="pengajuan-filter-group">
-                <label>Tanggal Akhir</label>
-
-                <div class="pengajuan-date-picker" data-date-picker>
-                    <input
-                        type="hidden"
-                        name="tanggal_akhir"
-                        value="{{ request()->get('tanggal_akhir') }}"
-                        data-date-value
-                    >
-
-                    <button
-                        type="button"
-                        class="pengajuan-date-button"
-                        data-date-button
-                    >
-                        <span data-date-text>Pilih tanggal</span>
-                        <i class="bi bi-calendar3"></i>
-                    </button>
-
-                    <div class="pengajuan-calendar">
-
-                        <div class="pengajuan-calendar-header">
-                            <button
-                                type="button"
-                                data-calendar-prev
-                                aria-label="Bulan sebelumnya"
-                            >
-                                <i class="bi bi-chevron-left"></i>
-                            </button>
-
-                            <strong data-calendar-title></strong>
-
-                            <button
-                                type="button"
-                                data-calendar-next
-                                aria-label="Bulan berikutnya"
-                            >
-                                <i class="bi bi-chevron-right"></i>
-                            </button>
-                        </div>
-
-                        <div class="pengajuan-calendar-days">
-                            <span>Min</span>
-                            <span>Sen</span>
-                            <span>Sel</span>
-                            <span>Rab</span>
-                            <span>Kam</span>
-                            <span>Jum</span>
-                            <span>Sab</span>
-                        </div>
-
-                        <div
-                            class="pengajuan-calendar-grid"
-                            data-calendar-grid
-                        ></div>
-
-                    </div>
-                </div>
-            </div>
-
             <div class="pengajuan-filter-actions">
-
-                <button
-                    type="submit"
-                    class="pengajuan-btn-filter"
-                >
-                    <i class="bi bi-search"></i>
-                    Tampilkan
-                </button>
-
                 <a
-                    href="{{ route('admin.pengajuan.index') }}"
+                    href="<?php echo e(route('member.pengajuan.index')); ?>"
                     class="pengajuan-btn-refresh"
                 >
                     <i class="bi bi-arrow-clockwise"></i>
                     Refresh
                 </a>
-
             </div>
 
         </form>
@@ -283,103 +149,107 @@
 
                 <tbody id="pengajuanTableBody">
 
-                    @forelse($pengajuan as $item)
+                    <?php $__empty_1 = true; $__currentLoopData = $pengajuan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
 
                         <tr
                             class="pengajuan-row"
 
                             data-search="
-                                {{ $item->user->name ?? '' }}
-                                {{ $item->user->kelas ?? '' }}
-                                {{ $item->buku->judul ?? '' }}
-                                {{ $item->status }}
+                                <?php echo e($item->user->name ?? ''); ?>
+
+                                <?php echo e($item->user->kelas ?? ''); ?>
+
+                                <?php echo e($item->buku->judul ?? ''); ?>
+
+                                <?php echo e($item->status); ?>
+
                             "
 
-                            data-id="{{ $item->pengajuan_id }}"
-                            data-nama="{{ $item->user->name ?? '-' }}"
-                            data-kelas="{{ $item->user->kelas ?? '-' }}"
+                            data-id="<?php echo e($item->pengajuan_id); ?>"
+                            data-nama="<?php echo e($item->user->name ?? '-'); ?>"
+                            data-kelas="<?php echo e($item->user->kelas ?? '-'); ?>"
 
-                            data-buku="{{ $item->buku->judul ?? '-' }}"
-                            data-penerbit="{{ $item->buku->penerbit ?? '-' }}"
-                            data-pengarang="{{ $item->buku->pengarang ?? '-' }}"
+                            data-buku="<?php echo e($item->buku->judul ?? '-'); ?>"
+                            data-penerbit="<?php echo e($item->buku->penerbit ?? '-'); ?>"
+                            data-pengarang="<?php echo e($item->buku->pengarang ?? '-'); ?>"
 
-                            @if($item->buku && $item->buku->kategori)
-                                data-kategori="{{ $item->buku->kategori->nama_kategori }}"
-                            @else
-                                data-kategori="-"
-                            @endif
+                            data-kategori="<?php echo e($item->buku?->kategori?->nama_kategori ?? '-'); ?>"
 
-                            @if($item->buku && $item->buku->sampul)
-                                data-cover="{{ asset('storage/' . $item->buku->sampul) }}"
-                            @else
+                            <?php if($item->buku && $item->buku->sampul): ?>
+                                data-cover="<?php echo e(asset('storage/' . $item->buku->sampul)); ?>"
+                            <?php else: ?>
                                 data-cover=""
-                            @endif
+                            <?php endif; ?>
 
-                            data-status="{{ $item->status }}"
+                            data-status="<?php echo e($item->status); ?>"
 
-                            data-tanggal-pengajuan="{{ $item->tanggal_pengajuan ? $item->tanggal_pengajuan->format('d/m/Y H:i') : '-' }}"
-                            data-tanggal-disiapkan="{{ $item->tanggal_disiapkan ? $item->tanggal_disiapkan->format('d/m/Y H:i') : '' }}"
-                            data-batas-pengambilan="{{ $item->batas_pengambilan ? $item->batas_pengambilan->format('d/m/Y H:i') : '' }}"
-                            data-tanggal-diambil="{{ $item->tanggal_diambil ? $item->tanggal_diambil->format('d/m/Y H:i') : '' }}"
+                            data-tanggal-pengajuan="<?php echo e($item->tanggal_pengajuan ? $item->tanggal_pengajuan->format('d/m/Y H:i') : '-'); ?>"
+                            data-tanggal-disiapkan="<?php echo e($item->tanggal_disiapkan ? $item->tanggal_disiapkan->format('d/m/Y H:i') : ''); ?>"
+                            data-batas-pengambilan="<?php echo e($item->batas_pengambilan ? $item->batas_pengambilan->format('d/m/Y H:i') : ''); ?>"
+                            data-tanggal-diambil="<?php echo e($item->tanggal_diambil ? $item->tanggal_diambil->format('d/m/Y H:i') : ''); ?>"
 
-                            data-alasan="{{ $item->alasan_ditolak ?? '' }}"
-
-                            data-url-siap="{{ route('admin.pengajuan.siap', $item->pengajuan_id) }}"
-                            data-url-tolak="{{ route('admin.pengajuan.tolak', $item->pengajuan_id) }}"
-                            data-url-diambil="{{ route('admin.pengajuan.diambil', $item->pengajuan_id) }}"
+                            data-alasan="<?php echo e($item->alasan_ditolak ?? ''); ?>"
                         >
 
                             <td class="text-center row-number">
-                                {{ $loop->iteration }}
+                                <?php echo e($loop->iteration); ?>
+
                             </td>
 
                             <td class="text-center">
-                                {{ $item->tanggal_pengajuan ? $item->tanggal_pengajuan->format('d/m/Y') : '-' }}
+                                <?php echo e($item->tanggal_pengajuan ? $item->tanggal_pengajuan->format('d/m/Y') : '-'); ?>
+
                             </td>
 
                             <td class="text-center">
-                                {{ $item->tanggal_disiapkan ? $item->tanggal_disiapkan->format('d/m/Y') : '-' }}
+                                <?php echo e($item->tanggal_disiapkan ? $item->tanggal_disiapkan->format('d/m/Y') : '-'); ?>
+
                             </td>
 
                             <td class="text-center">
-                                {{ $item->batas_pengambilan ? $item->batas_pengambilan->format('d/m/Y') : '-' }}
+                                <?php echo e($item->batas_pengambilan ? $item->batas_pengambilan->format('d/m/Y') : '-'); ?>
+
                             </td>
 
                             <td class="text-center">
-                                {{ $item->tanggal_diambil ? $item->tanggal_diambil->format('d/m/Y') : '-' }}
+                                <?php echo e($item->tanggal_diambil ? $item->tanggal_diambil->format('d/m/Y') : '-'); ?>
+
                             </td>
 
                             <td class="pengajuan-name-cell">
-                                {{ $item->user->name ?? '-' }}
+                                <?php echo e($item->user->name ?? '-'); ?>
+
                             </td>
 
                             <td class="text-center">
-                                {{ $item->user->kelas ?? '-' }}
+                                <?php echo e($item->user->kelas ?? '-'); ?>
+
                             </td>
 
                             <td class="pengajuan-book-cell">
-                                {{ $item->buku->judul ?? '-' }}
+                                <?php echo e($item->buku->judul ?? '-'); ?>
+
                             </td>
 
                             <td class="text-center">
 
-                                @if($item->status == 'menunggu')
+                                <?php if($item->status === 'menunggu'): ?>
                                     <span class="pengajuan-status menunggu">
                                         Menunggu
                                     </span>
-                                @elseif($item->status == 'siap')
+                                <?php elseif($item->status === 'siap'): ?>
                                     <span class="pengajuan-status siap">
                                         Siap
                                     </span>
-                                @elseif($item->status == 'disetujui')
+                                <?php elseif($item->status === 'disetujui'): ?>
                                     <span class="pengajuan-status disetujui">
                                         Disetujui
                                     </span>
-                                @elseif($item->status == 'ditolak')
+                                <?php elseif($item->status === 'ditolak'): ?>
                                     <span class="pengajuan-status ditolak">
                                         Ditolak
                                     </span>
-                                @endif
+                                <?php endif; ?>
 
                             </td>
 
@@ -399,10 +269,11 @@
 
                         </tr>
 
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
 
                         <tr id="pengajuan-empty-row">
                             <td colspan="10">
+
                                 <div class="pengajuan-empty">
                                     <i class="bi bi-inbox"></i>
 
@@ -411,13 +282,14 @@
                                     </strong>
 
                                     <span>
-                                        Belum ada yang mengajukan buku
+                                        Kamu belum mengajukan peminjaman buku
                                     </span>
                                 </div>
+
                             </td>
                         </tr>
 
-                    @endforelse
+                    <?php endif; ?>
 
                 </tbody>
 
@@ -446,7 +318,7 @@
 </div>
 
 
-{{-- DETAIL PENGAJUAN --}}
+
 <div
     class="pengajuan-modal"
     id="pengajuanModal"
@@ -458,7 +330,10 @@
     <div class="pengajuan-modal-dialog">
 
         <div class="pengajuan-modal-header">
-            <h3>Detail Pengajuan Peminjaman</h3>
+
+            <h3>
+                Detail Pengajuan Peminjaman
+            </h3>
 
             <button
                 type="button"
@@ -467,13 +342,15 @@
             >
                 <i class="bi bi-x-lg"></i>
             </button>
+
         </div>
+
 
         <div class="pengajuan-modal-body">
 
             <div class="pengajuan-detail-layout">
 
-                {{-- BUKU --}}
+                
                 <div class="pengajuan-book-preview">
 
                     <h4 class="pengajuan-book-label">
@@ -525,7 +402,7 @@
                 </div>
 
 
-                {{-- DETAIL --}}
+                
                 <div class="pengajuan-detail-content">
 
                     <div class="pengajuan-detail-list">
@@ -537,7 +414,9 @@
                                 Tanggal Pengajuan
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span
                                 class="pengajuan-detail-value"
@@ -546,6 +425,7 @@
                                 -
                             </span>
                         </div>
+
 
                         <div
                             class="pengajuan-detail-row"
@@ -557,7 +437,9 @@
                                 Tanggal Disiapkan
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span
                                 class="pengajuan-detail-value"
@@ -566,6 +448,7 @@
                                 -
                             </span>
                         </div>
+
 
                         <div
                             class="pengajuan-detail-row"
@@ -577,7 +460,9 @@
                                 Batas Pengambilan
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span
                                 class="pengajuan-detail-value"
@@ -586,6 +471,7 @@
                                 -
                             </span>
                         </div>
+
 
                         <div
                             class="pengajuan-detail-row"
@@ -597,7 +483,9 @@
                                 Tanggal Diambil
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span
                                 class="pengajuan-detail-value"
@@ -607,6 +495,7 @@
                             </span>
                         </div>
 
+
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-person"></i>
 
@@ -614,7 +503,9 @@
                                 Nama Lengkap
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span
                                 class="pengajuan-detail-value"
@@ -624,6 +515,7 @@
                             </span>
                         </div>
 
+
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-star-fill"></i>
 
@@ -631,7 +523,9 @@
                                 Kelas
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span
                                 class="pengajuan-detail-value"
@@ -641,6 +535,7 @@
                             </span>
                         </div>
 
+
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-bullseye"></i>
 
@@ -648,68 +543,94 @@
                                 Status
                             </span>
 
-                            <span class="pengajuan-detail-separator">:</span>
+                            <span class="pengajuan-detail-separator">
+                                :
+                            </span>
 
                             <span class="pengajuan-detail-value">
+
                                 <span
                                     class="pengajuan-status"
                                     id="detailStatus"
                                 >
                                     -
                                 </span>
+
                             </span>
                         </div>
 
                     </div>
 
 
-                    {{-- MENUNGGU --}}
+                    
                     <div
-                        class="pengajuan-figma-state menunggu"
+                        class="pengajuan-state-box"
                         id="sectionMenunggu"
                     >
-                        <div class="pengajuan-reject-title">
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                            Alasan Ditolak
+                        <div class="pengajuan-state-title">
+                            <i class="bi bi-clock"></i>
+
+                            <span>
+                                Menunggu Konfirmasi
+                            </span>
                         </div>
 
-                        <textarea
-                            id="rejectReason"
-                            placeholder="Masukan alasan ditolak (opsional)"
-                        ></textarea>
-
-                        <small>
-                            Alasan akan terlihat oleh member yang mengajukan
-                        </small>
+                        <p>
+                            Pengajuan ini menunggu konfirmasi dari petugas
+                        </p>
                     </div>
 
 
-                    {{-- SIAP --}}
+                    
                     <div
-                        class="pengajuan-figma-state message"
+                        class="pengajuan-state-box"
                         id="sectionSiap"
                     >
-                        Pengajuan ini menunggu buku diambil
+                        <div class="pengajuan-state-title">
+                            <i class="bi bi-check-circle"></i>
+
+                            <span>
+                                Buku Siap Diambil
+                            </span>
+                        </div>
+
+                        <p>
+                            Pengajuan telah dikonfirmasi.<br>
+                            Silahkan ambil buku di perpustakaan
+                        </p>
                     </div>
 
 
-                    {{-- DISETUJUI --}}
+                    
                     <div
-                        class="pengajuan-figma-state message"
+                        class="pengajuan-state-box"
                         id="sectionDisetujui"
                     >
-                        Pengajuan ini telah disetujui
+                        <div class="pengajuan-state-title">
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            <span>
+                                Pengajuan Disetujui
+                            </span>
+                        </div>
+
+                        <p>
+                            Pengajuan ini telah disetujui
+                        </p>
                     </div>
 
 
-                    {{-- DITOLAK --}}
+                    
                     <div
-                        class="pengajuan-figma-state ditolak"
+                        class="pengajuan-state-box"
                         id="sectionDitolak"
                     >
                         <div class="pengajuan-reject-title">
                             <i class="bi bi-exclamation-circle-fill"></i>
-                            Alasan Ditolak
+
+                            <span>
+                                Alasan Ditolak
+                            </span>
                         </div>
 
                         <div
@@ -729,79 +650,18 @@
 
         <div class="pengajuan-modal-footer">
 
-            <div class="pengajuan-modal-footer-left">
-
-                <form
-                    method="POST"
-                    id="formSiap"
-                    class="pengajuan-action-form"
-                >
-                    @csrf
-                    @method('PATCH')
-
-                    <button
-                        type="submit"
-                        class="pengajuan-modal-btn ready"
-                    >
-                        Siap Diambil
-                    </button>
-                </form>
-
-                <form
-                    method="POST"
-                    id="formDiambil"
-                    class="pengajuan-action-form"
-                >
-                    @csrf
-                    @method('PATCH')
-
-                    <button
-                        type="submit"
-                        class="pengajuan-modal-btn taken"
-                    >
-                        Sudah Diambil
-                    </button>
-                </form>
-
-            </div>
-
-            <div class="pengajuan-modal-footer-right">
-
-                <form
-                    method="POST"
-                    id="formTolak"
-                    class="pengajuan-action-form"
-                >
-                    @csrf
-                    @method('PATCH')
-
-                    <input
-                        type="hidden"
-                        name="alasan_ditolak"
-                        id="rejectReasonInput"
-                    >
-
-                    <button
-                        type="submit"
-                        class="pengajuan-modal-btn reject"
-                    >
-                        Tolak
-                    </button>
-                </form>
-
-                <button
-                    type="button"
-                    class="pengajuan-modal-btn close"
-                    id="closePengajuanModalFooter"
-                >
-                    Tutup
-                </button>
-
-            </div>
+            <button
+                type="button"
+                class="pengajuan-modal-btn close"
+                id="closePengajuanModalFooter"
+            >
+                Tutup
+            </button>
 
         </div>
 
     </div>
 
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\Aplikasi_peminjaman_buku_paket(PKL)\resources\views/member/pengajuan/index.blade.php ENDPATH**/ ?>

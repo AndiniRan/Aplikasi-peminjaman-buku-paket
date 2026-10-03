@@ -192,10 +192,6 @@
     <div class="member-detail-box">
         <div class="member-detail-header">
             <h3>Detail Siswa</h3>
-
-            <button type="button" class="member-detail-close" id="memberDetailClose">
-                <i class="bi bi-x-lg"></i>
-            </button>
         </div>
 
         <div class="member-detail-body">
@@ -252,7 +248,7 @@
 
                 <div class="member-detail-row">
                     <div class="detail-label">
-                        <i class="bi bi-circle"></i>
+                        <i class="bi bi-bullseye"></i>
                         <span>Status</span>
                     </div>
 

@@ -1,40 +1,65 @@
-@extends('layouts.dashboard')
 
-@section('title', 'Peminjaman')
-@section('page-title', 'Peminjaman')
 
-@vite([
-    'resources/css/adminTransaksi.css',
-    'resources/js/adminTransaksi.js'
-])
+<?php $__env->startSection('title', 'Riwayat Peminjaman'); ?>
+<?php $__env->startSection('page-title', 'Riwayat Peminjaman'); ?>
 
-@section('content')
-<div class="transaksi-page" data-page="peminjaman">
+<?php echo app('Illuminate\Foundation\Vite')([
+    'resources/css/memberRiwayat.css',
+    'resources/js/memberRiwayat.js'
+]); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<div class="transaksi-page">
     <div class="transaksi-card">
+
         <div class="transaksi-title">
-            <h2>Daftar seluruh peminjaman buku</h2>
+            <h2>Daftar seluruh riwayat peminjaman buku</h2>
         </div>
 
-        @if(session('success'))
-            <div class="transaksi-alert transaksi-alert-success">
-                <i class="bi bi-check-circle-fill"></i>
-                <span>{{ session('success') }}</span>
-            </div>
-        @endif
+        <div class="transaksi-filter">
+            <div class="transaksi-filter-group">
+                <label>Status</label>
 
-        @if(session('error'))
-            <div class="transaksi-alert transaksi-alert-error">
-                <i class="bi bi-exclamation-circle-fill"></i>
-                <span>{{ session('error') }}</span>
-            </div>
-        @endif
+                <div class="transaksi-dropdown" data-dropdown>
+                    <button type="button"
+                            class="transaksi-dropdown-button transaksi-status-button"
+                            data-dropdown-button>
+                        <span data-status-text>Semua</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
 
-        <div class="transaksi-top-actions">
-            <a href="{{ route('admin.transaksi.peminjaman.create') }}"
-               class="transaksi-top-btn transaksi-add-loan">
-                <i class="bi bi-plus-lg"></i>
-                <span>Tambah Peminjaman</span>
-            </a>
+                    <div class="transaksi-dropdown-menu">
+                        <button type="button"
+                                data-status=""
+                                class="active">
+                            Semua
+                        </button>
+
+                        <button type="button"
+                                data-status="dipinjam">
+                            Dipinjam
+                        </button>
+
+                        <button type="button"
+                                data-status="terlambat">
+                            Terlambat
+                        </button>
+
+                        <button type="button"
+                                data-status="dikembalikan">
+                            Selesai
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button"
+                    class="transaksi-btn-refresh"
+                    id="transaksiRefresh">
+                <i class="bi bi-arrow-clockwise"></i>
+                <span>Refresh</span>
+            </button>
         </div>
 
         <div class="transaksi-controls">
@@ -52,7 +77,8 @@
                         </button>
 
                         <div class="transaksi-dropdown-menu">
-                            <button type="button" data-entries="5">
+                            <button type="button"
+                                    data-entries="5">
                                 5
                             </button>
 
@@ -62,53 +88,19 @@
                                 10
                             </button>
 
-                            <button type="button" data-entries="25">
+                            <button type="button"
+                                    data-entries="25">
                                 25
                             </button>
 
-                            <button type="button" data-entries="50">
+                            <button type="button"
+                                    data-entries="50">
                                 50
                             </button>
                         </div>
                     </div>
 
                     <span>entries</span>
-                </div>
-
-                <div class="transaksi-status-control">
-                    <span>Status</span>
-
-                    <div class="transaksi-dropdown" data-dropdown>
-                        <button type="button"
-                                class="transaksi-dropdown-button transaksi-status-button"
-                                data-dropdown-button>
-                            <span data-status-text>Semua</span>
-                            <i class="bi bi-chevron-down"></i>
-                        </button>
-
-                        <div class="transaksi-dropdown-menu">
-                            <button type="button"
-                                    data-status=""
-                                    class="active">
-                                Semua
-                            </button>
-
-                            <button type="button"
-                                    data-status="dipinjam">
-                                Dipinjam
-                            </button>
-
-                            <button type="button"
-                                    data-status="terlambat">
-                                Terlambat
-                            </button>
-
-                            <button type="button"
-                                    data-status="dikembalikan">
-                                Selesai
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -118,7 +110,7 @@
 
                 <input type="text"
                        id="transaksiSearch"
-                       placeholder="Cari transaksi..."
+                       placeholder="Cari peminjaman..."
                        autocomplete="off">
             </div>
         </div>
@@ -143,80 +135,85 @@
 
                 <tbody>
 
-                    @forelse($peminjaman as $item)
+                    <?php $__empty_1 = true; $__currentLoopData = $riwayat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
 
-                        @php
-                            $tanggalPengajuan = $item->pengajuan?->tanggal_pengajuan;
+                        <?php
+                            $tanggalPengajuan =
+                                $item->pengajuan?->tanggal_pengajuan;
 
                             $sampul = $item->buku?->sampul
                                 ? asset('storage/' . $item->buku->sampul)
                                 : asset('images/default-book.png');
 
-                            $kelasMember = $item->user?->role === 'siswa'
-                                ? ($item->user?->kelas ?? '-')
-                                : 'Guru';
-                        @endphp
+                            $kelasMember =
+                                $item->user?->role === 'siswa'
+                                    ? ($item->user?->kelas ?? '-')
+                                    : 'Guru';
+                        ?>
 
                         <tr class="transaksi-row"
                             data-transaksi-row
-                            data-status="{{ $item->status }}">
+                            data-status="<?php echo e($item->status); ?>">
 
                             <td class="transaksi-number">
-                                {{ $loop->iteration }}
+                                <?php echo e($loop->iteration); ?>
+
                             </td>
 
                             <td class="transaksi-member-name">
-                                {{ $item->user?->name ?? '-' }}
+                                <?php echo e($item->user?->name ?? '-'); ?>
+
                             </td>
 
                             <td class="transaksi-book-name">
-                                {{ $item->buku?->judul ?? '-' }}
+                                <?php echo e($item->buku?->judul ?? '-'); ?>
+
                             </td>
 
                             <td>
-                                {{ $tanggalPengajuan
+                                <?php echo e($tanggalPengajuan
                                     ? $tanggalPengajuan->format('d M Y')
-                                    : '-' }}
+                                    : '-'); ?>
+
                             </td>
 
                             <td>
-                                {{ $item->tanggal_pinjam
+                                <?php echo e($item->tanggal_pinjam
                                     ? $item->tanggal_pinjam->format('d M Y')
-                                    : '-' }}
+                                    : '-'); ?>
+
                             </td>
 
                             <td>
-                                {{ $item->tanggal_jatuh_tempo
+                                <?php echo e($item->tanggal_jatuh_tempo
                                     ? $item->tanggal_jatuh_tempo->format('d M Y')
-                                    : '-' }}
+                                    : '-'); ?>
+
                             </td>
 
                             <td>
-                                {{ $item->tanggal_kembali
+                                <?php echo e($item->tanggal_kembali
                                     ? $item->tanggal_kembali->format('d M Y')
-                                    : '-' }}
+                                    : '-'); ?>
+
                             </td>
 
                             <td>
-                                @if($item->status === 'dipinjam')
-
+                                <?php if($item->status === 'dipinjam'): ?>
                                     <span class="transaksi-badge badge-dipinjam">
                                         Dipinjam
                                     </span>
 
-                                @elseif($item->status === 'terlambat')
-
+                                <?php elseif($item->status === 'terlambat'): ?>
                                     <span class="transaksi-badge badge-terlambat">
                                         Terlambat
                                     </span>
 
-                                @else
-
+                                <?php else: ?>
                                     <span class="transaksi-badge badge-selesai">
                                         Selesai
                                     </span>
-
-                                @endif
+                                <?php endif; ?>
                             </td>
 
                             <td>
@@ -226,75 +223,62 @@
                                             class="transaksi-action-btn detail"
                                             title="Detail"
                                             data-detail
-                                            data-member="{{ $item->user?->name ?? '-' }}"
-                                            data-kelas="{{ $kelasMember }}"
-                                            data-buku="{{ $item->buku?->judul ?? '-' }}"
-                                            data-penerbit="{{ $item->buku?->penerbit ?? '-' }}"
-                                            data-kategori="{{ $item->buku?->kategori?->nama_kategori ?? '-' }}"
-                                            data-sampul="{{ $sampul }}"
-                                            data-pengajuan="{{ $tanggalPengajuan ? $tanggalPengajuan->format('d M Y') : '-' }}"
-                                            data-pinjam="{{ $item->tanggal_pinjam ? $item->tanggal_pinjam->format('d M Y') : '-' }}"
-                                            data-jatuh-tempo="{{ $item->tanggal_jatuh_tempo ? $item->tanggal_jatuh_tempo->format('d M Y') : '-' }}"
-                                            data-kembali="{{ $item->tanggal_kembali ? $item->tanggal_kembali->format('d M Y') : '-' }}"
-                                            data-status="{{ $item->status }}">
-
+                                            data-member="<?php echo e($item->user?->name ?? '-'); ?>"
+                                            data-kelas="<?php echo e($kelasMember); ?>"
+                                            data-buku="<?php echo e($item->buku?->judul ?? '-'); ?>"
+                                            data-penerbit="<?php echo e($item->buku?->penerbit ?? '-'); ?>"
+                                            data-kategori="<?php echo e($item->buku?->kategori?->nama_kategori ?? '-'); ?>"
+                                            data-sampul="<?php echo e($sampul); ?>"
+                                            data-pengajuan="<?php echo e($tanggalPengajuan ? $tanggalPengajuan->format('d M Y') : '-'); ?>"
+                                            data-pinjam="<?php echo e($item->tanggal_pinjam ? $item->tanggal_pinjam->format('d M Y') : '-'); ?>"
+                                            data-jatuh-tempo="<?php echo e($item->tanggal_jatuh_tempo ? $item->tanggal_jatuh_tempo->format('d M Y') : '-'); ?>"
+                                            data-kembali="<?php echo e($item->tanggal_kembali ? $item->tanggal_kembali->format('d M Y') : '-'); ?>"
+                                            data-status="<?php echo e($item->status); ?>">
                                         <i class="bi bi-eye-fill"></i>
-
                                     </button>
-
-                                    @if(
-                                        $item->pengajuan_id === null &&
-                                        $item->status !== 'dikembalikan'
-                                    )
-
-                                        <a href="{{ route('admin.transaksi.peminjaman.edit', $item) }}"
-                                           class="transaksi-action-btn edit"
-                                           title="Edit">
-
-                                            <i class="bi bi-pencil-square"></i>
-
-                                        </a>
-
-                                    @endif
 
                                 </div>
                             </td>
-
                         </tr>
 
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
 
                         <tr class="transaksi-empty-row">
                             <td colspan="9">
-
                                 <div class="transaksi-empty">
                                     <i class="bi bi-inbox"></i>
-                                    <strong>Belum ada transaksi</strong>
-                                    <span>Data peminjaman akan muncul di sini.</span>
-                                </div>
 
+                                    <strong>
+                                        Belum ada riwayat peminjaman
+                                    </strong>
+
+                                    <span>
+                                        Riwayat peminjaman buku akan muncul di sini.
+                                    </span>
+                                </div>
                             </td>
                         </tr>
 
-                    @endforelse
+                    <?php endif; ?>
 
                     <tr class="transaksi-search-empty"
                         id="transaksiSearchEmpty">
-
                         <td colspan="9">
-
                             <div class="transaksi-empty">
                                 <i class="bi bi-search"></i>
-                                <strong>Data tidak ditemukan</strong>
-                                <span>Coba gunakan kata kunci atau filter lain.</span>
+
+                                <strong>
+                                    Data tidak ditemukan
+                                </strong>
+
+                                <span>
+                                    Coba gunakan kata kunci atau filter lain.
+                                </span>
                             </div>
-
                         </td>
-
                     </tr>
 
                 </tbody>
-
             </table>
         </div>
 
@@ -312,7 +296,6 @@
     </div>
 </div>
 
-{{-- DETAIL TRANSAKSI --}}
 <div class="transaksi-modal"
      id="transaksiDetailModal">
 
@@ -322,19 +305,20 @@
 
     <div class="transaksi-modal-box">
 
-        {{-- HEADER --}}
         <div class="transaksi-modal-header">
-            <h3>Detail Transaksi Peminjaman</h3>
+            <h3>Detail Transaksi</h3>
+
+            <button type="button"
+                    class="transaksi-modal-x"
+                    data-modal-close>
+            </button>
         </div>
 
-        {{-- CONTENT --}}
         <div class="transaksi-modal-content">
 
-            {{-- LEFT --}}
             <div class="transaksi-detail-left">
 
                 <div class="transaksi-book-detail">
-
                     <h4>Buku</h4>
 
                     <img src=""
@@ -356,11 +340,9 @@
                         <b>:</b>
                         <span id="detailKategori">-</span>
                     </div>
-
                 </div>
 
                 <div class="transaksi-member-detail">
-
                     <h4>Member</h4>
 
                     <div class="transaksi-member-row">
@@ -369,104 +351,82 @@
                             <i class="bi bi-person-fill"></i>
                         </div>
 
-                        <div class="transaksi-member-text">
-
+                        <div>
                             <strong id="detailMember">
                                 -
                             </strong>
 
                             <p>
                                 Kelas :
-                                <span id="detailKelas">-</span>
+                                <span id="detailKelas">
+                                    -
+                                </span>
                             </p>
-
                         </div>
 
                     </div>
-
                 </div>
 
             </div>
 
-            {{-- DIVIDER --}}
-            <div class="transaksi-detail-divider"></div>
+            <div class="transaksi-detail-divider">
+            </div>
 
-            {{-- RIGHT --}}
             <div class="transaksi-detail-right">
 
                 <div class="transaksi-detail-row">
-
                     <i class="bi bi-calendar3"></i>
 
-                    <span class="transaksi-detail-label">
-                        Tanggal Pengajuan
-                    </span>
+                    <span>Tanggal Pengajuan</span>
 
                     <b>:</b>
 
-                    <span class="transaksi-detail-value"
-                          id="detailPengajuan">
+                    <span id="detailPengajuan">
                         -
                     </span>
-
                 </div>
 
                 <div class="transaksi-detail-row">
-
                     <i class="bi bi-calendar-check"></i>
 
-                    <span class="transaksi-detail-label">
-                        Tanggal Pinjam
-                    </span>
+                    <span>Tanggal Pinjam</span>
 
                     <b>:</b>
 
-                    <span class="transaksi-detail-value"
-                          id="detailPinjam">
+                    <span id="detailPinjam">
                         -
                     </span>
-
                 </div>
 
                 <div class="transaksi-detail-row">
-
                     <i class="bi bi-clock-history"></i>
 
-                    <span class="transaksi-detail-label">
-                        Jatuh Tempo
-                    </span>
+                    <span>Jatuh Tempo</span>
 
                     <b>:</b>
 
-                    <span class="transaksi-detail-value"
-                          id="detailJatuhTempo">
+                    <span id="detailJatuhTempo">
                         -
                     </span>
-
                 </div>
 
                 <div class="transaksi-detail-row">
-
                     <i class="bi bi-arrow-return-left"></i>
 
-                    <span class="transaksi-detail-label">
-                        Tanggal Kembali
-                    </span>
+                    <span>Tanggal Kembali</span>
 
                     <b>:</b>
 
-                    <span class="transaksi-detail-value"
-                          id="detailKembali">
+                    <span id="detailKembali">
                         -
                     </span>
-
                 </div>
 
                 <div class="transaksi-detail-status">
 
-                    <div class="transaksi-detail-status-title">
+                    <div>
                         <i class="bi bi-record-circle"></i>
-                        <span>Status Peminjaman</span>
+                        <span>Status</span>
                     </div>
 
                     <span class="transaksi-badge"
@@ -477,10 +437,8 @@
                 </div>
 
             </div>
-
         </div>
 
-        {{-- FOOTER --}}
         <div class="transaksi-modal-footer">
 
             <button type="button"
@@ -490,8 +448,8 @@
             </button>
 
         </div>
-
     </div>
-
 </div>
-@endsection
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\Aplikasi_peminjaman_buku_paket(PKL)\resources\views/member/riwayat/index.blade.php ENDPATH**/ ?>

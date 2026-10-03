@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
 use App\Http\Controllers\Member\KatalogController as MemberKatalogController;
+use App\Http\Controllers\Member\PengajuanController as MemberPengajuanController;
+use App\Http\Controllers\Member\RiwayatPeminjamanController as MemberRiwayatPeminjamanController;
+use App\Http\Controllers\Member\ProfileController as MemberProfileController;
 
 Route::get('/', function () {
     $books = Buku::with('kategori')
@@ -182,6 +185,27 @@ Route::middleware(['auth'])
 
         Route::get('/katalog/{buku}/pengajuan', [MemberKatalogController::class, 'pengajuan'])
             ->name('katalog.pengajuan');
+
+        // Pengajuan //
+        Route::get('/pengajuan', [MemberPengajuanController::class, 'index'])
+            ->name('pengajuan.index');
+
+        Route::get('/pengajuan/buku/{buku}', [MemberPengajuanController::class, 'create'])
+            ->name('pengajuan.create');
+
+        Route::post('/pengajuan', [MemberPengajuanController::class, 'store'])
+            ->name('pengajuan.store');
+
+        // Riwayat Peminjaman //
+        Route::get('/riwayat-peminjaman', [MemberRiwayatPeminjamanController::class, 'index'])
+            ->name('riwayat.index');
+
+        // Profile //
+        Route::get('/profile', [MemberProfileController::class, 'index'])
+            ->name('profile.index');
+
+        Route::put('/profile', [MemberProfileController::class, 'updatePhoto'])
+            ->name('profile.update');
     });
 
 require __DIR__.'/auth.php';
