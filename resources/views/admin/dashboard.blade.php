@@ -94,7 +94,7 @@
     </div>
 
     <!-- {{-- STATISTIK --}} -->
-    <div class="admin-statistics-card">
+    <div class="admin-statistics-card" data-url="{{ route('admin.dashboard.statistik') }}">
         <div class="admin-statistics-header">
             <div class="admin-statistics-title">
                 <div class="admin-statistics-icon">
@@ -152,6 +152,12 @@
                             <button type="button" data-value="" class="active">
                                 Semua Kategori
                             </button>
+
+                            @foreach ($kategoriList as $kategori)
+                                <button type="button" data-value="{{ $kategori->id }}">
+                                    {{ $kategori->nama_kategori }}
+                                </button>
+                            @endforeach
                         </div>
                     </div>
                 </div>

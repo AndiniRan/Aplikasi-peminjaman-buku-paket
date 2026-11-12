@@ -10,9 +10,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="pengajuan-page">
-
     <div class="pengajuan-card">
-
         <div class="pengajuan-title">
             <h2>Daftar pengajuan peminjaman saya</h2>
         </div>
@@ -31,32 +29,13 @@
             </div>
         <?php endif; ?>
 
-        <form
-            action="<?php echo e(route('member.pengajuan.index')); ?>"
-            method="GET"
-            class="pengajuan-filter-form"
-            id="pengajuanStatusForm"
-        >
-
+        <form action="<?php echo e(route('member.pengajuan.index')); ?>" method="GET" class="pengajuan-filter-form" id="pengajuanStatusForm">
             <div class="pengajuan-filter-group">
                 <label>Status</label>
 
-                <div
-                    class="pengajuan-filter-select"
-                    id="statusFilterDropdown"
-                >
-                    <input
-                        type="hidden"
-                        name="status"
-                        id="statusFilterInput"
-                        value="<?php echo e($statusFilter ?? ''); ?>"
-                    >
-
-                    <button
-                        type="button"
-                        class="pengajuan-filter-button"
-                        id="statusFilterButton"
-                    >
+                <div class="pengajuan-filter-select" id="statusFilterDropdown">
+                    <input type="hidden" name="status" id="statusFilterInput" value="<?php echo e($statusFilter ?? ''); ?>">
+                    <button type="button" class="pengajuan-filter-button" id="statusFilterButton">
                         <span id="statusFilterText">
                             Semua
                         </span>
@@ -75,31 +54,19 @@
             </div>
 
             <div class="pengajuan-filter-actions">
-                <a
-                    href="<?php echo e(route('member.pengajuan.index')); ?>"
-                    class="pengajuan-btn-refresh"
-                >
+                <a href="<?php echo e(route('member.pengajuan.index')); ?>" class="pengajuan-btn-refresh">
                     <i class="bi bi-arrow-clockwise"></i>
                     Refresh
                 </a>
             </div>
-
         </form>
 
         <div class="pengajuan-control-row">
-
             <div class="pengajuan-show-control">
                 <span>Show</span>
 
-                <div
-                    class="entries-filter-select"
-                    id="entriesDropdown"
-                >
-                    <button
-                        type="button"
-                        class="entries-filter-button"
-                        id="entriesButton"
-                    >
+                <div class="entries-filter-select" id="entriesDropdown">
+                    <button type="button" class="entries-filter-button" id="entriesButton">
                         <span id="entriesValue">10</span>
                         <i class="bi bi-chevron-down"></i>
                     </button>
@@ -111,27 +78,17 @@
                         <button type="button" data-value="50">50</button>
                     </div>
                 </div>
-
                 <span>entries</span>
             </div>
 
             <div class="pengajuan-search">
                 <i class="bi bi-search"></i>
-
-                <input
-                    type="text"
-                    id="pengajuanSearch"
-                    placeholder="Cari pengajuan..."
-                    autocomplete="off"
-                >
+                <input type="text" id="pengajuanSearch" placeholder="Cari pengajuan..." autocomplete="off">
             </div>
-
         </div>
 
         <div class="pengajuan-table-wrapper">
-
             <table class="pengajuan-table">
-
                 <thead>
                     <tr>
                         <th class="col-no">No</th>
@@ -148,12 +105,8 @@
                 </thead>
 
                 <tbody id="pengajuanTableBody">
-
                     <?php $__empty_1 = true; $__currentLoopData = $pengajuan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-
-                        <tr
-                            class="pengajuan-row"
-
+                        <tr class="pengajuan-row"
                             data-search="
                                 <?php echo e($item->user->name ?? ''); ?>
 
@@ -232,7 +185,6 @@
                             </td>
 
                             <td class="text-center">
-
                                 <?php if($item->status === 'menunggu'): ?>
                                     <span class="pengajuan-status menunggu">
                                         Menunggu
@@ -250,30 +202,19 @@
                                         Ditolak
                                     </span>
                                 <?php endif; ?>
-
                             </td>
 
                             <td>
                                 <div class="pengajuan-actions">
-
-                                    <button
-                                        type="button"
-                                        class="pengajuan-action-btn view btn-detail-pengajuan"
-                                        title="Detail"
-                                    >
+                                    <button type="button" class="pengajuan-action-btn view btn-detail-pengajuan" title="Detail">
                                         <i class="bi bi-eye-fill"></i>
                                     </button>
-
                                 </div>
                             </td>
-
                         </tr>
-
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-
                         <tr id="pengajuan-empty-row">
                             <td colspan="10">
-
                                 <div class="pengajuan-empty">
                                     <i class="bi bi-inbox"></i>
 
@@ -285,93 +226,50 @@
                                         Kamu belum mengajukan peminjaman buku
                                     </span>
                                 </div>
-
                             </td>
                         </tr>
-
                     <?php endif; ?>
-
                 </tbody>
-
             </table>
-
         </div>
 
         <div class="pengajuan-table-footer">
-
-            <div
-                class="pengajuan-info"
-                id="pengajuanInfo"
-            >
+            <div class="pengajuan-info" id="pengajuanInfo">
                 Belum ada data pengajuan
             </div>
 
-            <div
-                class="pengajuan-pagination"
-                id="pengajuanPagination"
-            ></div>
-
+            <div class="pengajuan-pagination" id="pengajuanPagination"></div>
         </div>
-
     </div>
-
 </div>
 
 
-
-<div
-    class="pengajuan-modal"
-    id="pengajuanModal"
-    aria-hidden="true"
->
-
+<div class="pengajuan-modal" id="pengajuanModal" aria-hidden="true">
     <div class="pengajuan-modal-overlay"></div>
-
     <div class="pengajuan-modal-dialog">
-
         <div class="pengajuan-modal-header">
-
             <h3>
                 Detail Pengajuan Peminjaman
             </h3>
 
-            <button
-                type="button"
-                class="pengajuan-modal-close"
-                id="closePengajuanModal"
-            >
+            <button type="button" class="pengajuan-modal-close" id="closePengajuanModal">
                 <i class="bi bi-x-lg"></i>
             </button>
-
         </div>
 
-
         <div class="pengajuan-modal-body">
-
             <div class="pengajuan-detail-layout">
-
                 
                 <div class="pengajuan-book-preview">
-
                     <h4 class="pengajuan-book-label">
                         Buku
                     </h4>
 
                     <div class="pengajuan-cover-wrapper">
-
-                        <img
-                            src=""
-                            alt="Sampul Buku"
-                            id="detailCover"
-                        >
-
-                        <div
-                            class="pengajuan-cover-placeholder"
-                            id="detailCoverPlaceholder"
-                        >
+                        <img src="" alt="Sampul Buku" id="detailCover">
+                        <div class="pengajuan-cover-placeholder" id="detailCoverPlaceholder">
                             <i class="bi bi-book"></i>
                         </div>
-
                     </div>
 
                     <h4 id="detailJudulBuku">
@@ -379,7 +277,6 @@
                     </h4>
 
                     <div class="pengajuan-book-meta">
-
                         <div>
                             <span>Penerbit</span>
                             <b>:</b>
@@ -391,22 +288,15 @@
                             <b>:</b>
                             <span id="detailKategori">-</span>
                         </div>
-
                     </div>
 
-                    <span
-                        id="detailPengarang"
-                        hidden
-                    ></span>
-
+                    <span id="detailPengarang" hidden></span>
                 </div>
 
 
                 
                 <div class="pengajuan-detail-content">
-
                     <div class="pengajuan-detail-list">
-
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-calendar3"></i>
 
@@ -418,19 +308,12 @@
                                 :
                             </span>
 
-                            <span
-                                class="pengajuan-detail-value"
-                                id="detailTanggalPengajuan"
-                            >
+                            <span class="pengajuan-detail-value" id="detailTanggalPengajuan">
                                 -
                             </span>
                         </div>
 
-
-                        <div
-                            class="pengajuan-detail-row"
-                            id="rowTanggalDisiapkan"
-                        >
+                        <div class="pengajuan-detail-row" id="rowTanggalDisiapkan">
                             <i class="bi bi-calendar3"></i>
 
                             <span class="pengajuan-detail-label">
@@ -441,19 +324,12 @@
                                 :
                             </span>
 
-                            <span
-                                class="pengajuan-detail-value"
-                                id="detailTanggalDisiapkan"
-                            >
+                            <span class="pengajuan-detail-value" id="detailTanggalDisiapkan">
                                 -
                             </span>
                         </div>
 
-
-                        <div
-                            class="pengajuan-detail-row"
-                            id="rowBatasPengambilan"
-                        >
+                        <div class="pengajuan-detail-row" id="rowBatasPengambilan">
                             <i class="bi bi-calendar3"></i>
 
                             <span class="pengajuan-detail-label">
@@ -464,19 +340,12 @@
                                 :
                             </span>
 
-                            <span
-                                class="pengajuan-detail-value"
-                                id="detailBatasPengambilan"
-                            >
+                            <span class="pengajuan-detail-value" id="detailBatasPengambilan">
                                 -
                             </span>
                         </div>
 
-
-                        <div
-                            class="pengajuan-detail-row"
-                            id="rowTanggalDiambil"
-                        >
+                        <div class="pengajuan-detail-row" id="rowTanggalDiambil">
                             <i class="bi bi-calendar3"></i>
 
                             <span class="pengajuan-detail-label">
@@ -487,14 +356,10 @@
                                 :
                             </span>
 
-                            <span
-                                class="pengajuan-detail-value"
-                                id="detailTanggalDiambil"
-                            >
+                            <span class="pengajuan-detail-value" id="detailTanggalDiambil">
                                 -
                             </span>
                         </div>
-
 
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-person"></i>
@@ -507,14 +372,10 @@
                                 :
                             </span>
 
-                            <span
-                                class="pengajuan-detail-value"
-                                id="detailNama"
-                            >
+                            <span class="pengajuan-detail-value" id="detailNama">
                                 -
                             </span>
                         </div>
-
 
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-star-fill"></i>
@@ -527,14 +388,10 @@
                                 :
                             </span>
 
-                            <span
-                                class="pengajuan-detail-value"
-                                id="detailKelas"
-                            >
+                            <span class="pengajuan-detail-value" id="detailKelas">
                                 -
                             </span>
                         </div>
-
 
                         <div class="pengajuan-detail-row">
                             <i class="bi bi-bullseye"></i>
@@ -548,25 +405,15 @@
                             </span>
 
                             <span class="pengajuan-detail-value">
-
-                                <span
-                                    class="pengajuan-status"
-                                    id="detailStatus"
-                                >
+                                <span class="pengajuan-status" id="detailStatus">
                                     -
                                 </span>
-
                             </span>
                         </div>
-
                     </div>
 
-
                     
-                    <div
-                        class="pengajuan-state-box"
-                        id="sectionMenunggu"
-                    >
+                    <div class="pengajuan-state-box" id="sectionMenunggu">
                         <div class="pengajuan-state-title">
                             <i class="bi bi-clock"></i>
 
@@ -580,12 +427,8 @@
                         </p>
                     </div>
 
-
                     
-                    <div
-                        class="pengajuan-state-box"
-                        id="sectionSiap"
-                    >
+                    <div class="pengajuan-state-box" id="sectionSiap">
                         <div class="pengajuan-state-title">
                             <i class="bi bi-check-circle"></i>
 
@@ -600,12 +443,8 @@
                         </p>
                     </div>
 
-
                     
-                    <div
-                        class="pengajuan-state-box"
-                        id="sectionDisetujui"
-                    >
+                    <div class="pengajuan-state-box" id="sectionDisetujui">
                         <div class="pengajuan-state-title">
                             <i class="bi bi-check-circle-fill"></i>
 
@@ -619,12 +458,8 @@
                         </p>
                     </div>
 
-
                     
-                    <div
-                        class="pengajuan-state-box"
-                        id="sectionDitolak"
-                    >
+                    <div class="pengajuan-state-box" id="sectionDitolak">
                         <div class="pengajuan-reject-title">
                             <i class="bi bi-exclamation-circle-fill"></i>
 
@@ -633,35 +468,21 @@
                             </span>
                         </div>
 
-                        <div
-                            class="pengajuan-reject-result"
-                            id="detailAlasanDitolak"
-                        >
+                        <div class="pengajuan-reject-result" id="detailAlasanDitolak">
                             -
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
 
         <div class="pengajuan-modal-footer">
-
-            <button
-                type="button"
-                class="pengajuan-modal-btn close"
-                id="closePengajuanModalFooter"
-            >
+            <button type="button" class="pengajuan-modal-btn close" id="closePengajuanModalFooter">
                 Tutup
             </button>
-
         </div>
-
     </div>
-
 </div>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\Aplikasi_peminjaman_buku_paket(PKL)\resources\views/member/pengajuan/index.blade.php ENDPATH**/ ?>

@@ -11,6 +11,7 @@ class Pengajuan extends Model
 
     protected $table = 'pengajuan_peminjaman';
     protected $primaryKey = 'pengajuan_id';
+
     protected $fillable = [
         'user_id',
         'buku_id',
@@ -21,6 +22,7 @@ class Pengajuan extends Model
         'status',
         'alasan_ditolak',
     ];
+
     protected $casts = [
         'tanggal_pengajuan' => 'datetime',
         'tanggal_disiapkan' => 'datetime',
@@ -38,8 +40,22 @@ class Pengajuan extends Model
         return $this->belongsTo(Buku::class, 'buku_id');
     }
 
+    // Relasi baru untuk detail pengajuan multi-buku
+    public function detailPengajuan()
+    {
+        return $this->hasMany(
+            DetailPengajuan::class,
+            'pengajuan_id',
+            'pengajuan_id'
+        );
+    }
+
     public function transaksi()
     {
-        return $this->hasOne(Transaksi::class, 'pengajuan_id', 'pengajuan_id');
+        return $this->hasOne(
+            Transaksi::class,
+            'pengajuan_id',
+            'pengajuan_id'
+        );
     }
 }

@@ -13,19 +13,33 @@ return new class extends Migration
     {
         Schema::create('pengajuan_peminjaman', function (Blueprint $table) {
             $table->id('pengajuan_id');
-            $table->foreignId('user_id') ->constrained('users') ->cascadeOnUpdate() ->cascadeOnDelete();
-            $table->foreignId('buku_id') ->constrained('buku') ->cascadeOnUpdate() ->restrictOnDelete();
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignId('buku_id')
+                ->nullable()
+                ->constrained('buku')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
             $table->dateTime('tanggal_pengajuan');
             $table->dateTime('tanggal_disiapkan')->nullable();
             $table->dateTime('batas_pengambilan')->nullable();
             $table->dateTime('tanggal_diambil')->nullable();
+
             $table->enum('status', [
                 'menunggu',
                 'siap',
                 'disetujui',
-                'ditolak'
+                'ditolak',
+                'dibatalkan'
             ])->default('menunggu');
+
             $table->text('alasan_ditolak')->nullable();
+
             $table->timestamps();
         });
     }

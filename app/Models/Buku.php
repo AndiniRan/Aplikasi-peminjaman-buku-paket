@@ -30,6 +30,16 @@ class Buku extends Model
         return $this->hasMany(Pengajuan::class, 'buku_id');
     }
 
+    // Relasi baru untuk detail pengajuan multi-buku
+    public function detailPengajuan()
+    {
+        return $this->hasMany(
+            DetailPengajuan::class,
+            'buku_id',
+            'id'
+        );
+    }
+
     public function transaksi()
     {
         return $this->hasMany(Transaksi::class, 'buku_id');

@@ -64,8 +64,12 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('kategori', KategoriController::class);
 
         // Data buku / Katalog buku
-        Route::get('/buku/katalog', [BukuController::class, 'katalog'])->name('buku.katalog');
-        Route::post('/buku/import', [BukuController::class, 'import'])->name('buku.import');
+        Route::get('/buku/katalog', [BukuController::class, 'katalog'])
+            ->name('buku.katalog');
+
+        Route::post('/buku/import', [BukuController::class, 'import'])
+            ->name('buku.import');
+
         Route::resource('buku', BukuController::class);
 
         // Data member (siswa & guru)
@@ -79,7 +83,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('member/siswa', MemberSiswaController::class)
             ->except('show')
             ->names('member.siswa');
-        
+
         Route::post('/member/siswa/import', [MemberSiswaController::class, 'import'])
             ->name('member.siswa.import');
 
@@ -123,7 +127,7 @@ Route::middleware(['auth', 'role:admin'])
             ->name('laporan.')
             ->group(function () {
 
-                Route::get('/peminjaman', [LaporanController::class, 'peminjaman']) 
+                Route::get('/peminjaman', [LaporanController::class, 'peminjaman'])
                     ->name('peminjaman');
 
                 Route::get('/peminjaman/export/excel', [LaporanController::class, 'exportPeminjamanExcel'])
@@ -159,7 +163,7 @@ Route::middleware(['auth', 'role:admin'])
                 Route::get('/member/export/pdf', [LaporanController::class, 'exportMemberPdf'])
                     ->name('member.export.pdf');
             });
-        
+
         // Profile //
         Route::get('/profile', [ProfileController::class, 'index'])
             ->name('profile.index');
@@ -173,6 +177,7 @@ Route::middleware(['auth'])
     ->name('member.')
     ->group(function () {
 
+        // Dashboard Member
         Route::get('/dashboard', [MemberDashboardController::class, 'index'])
             ->name('dashboard');
 
@@ -195,6 +200,10 @@ Route::middleware(['auth'])
 
         Route::post('/pengajuan', [MemberPengajuanController::class, 'store'])
             ->name('pengajuan.store');
+
+        // Route baru: pembatalan oleh Member.
+        Route::patch('/pengajuan/{pengajuan}/batalkan', [MemberPengajuanController::class, 'batalkan'])
+            ->name('pengajuan.batalkan');
 
         // Riwayat Peminjaman //
         Route::get('/riwayat-peminjaman', [MemberRiwayatPeminjamanController::class, 'index'])

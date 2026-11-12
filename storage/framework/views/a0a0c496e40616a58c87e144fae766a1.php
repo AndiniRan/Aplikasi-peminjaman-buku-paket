@@ -95,7 +95,7 @@
     </div>
 
     <!--  -->
-    <div class="admin-statistics-card">
+    <div class="admin-statistics-card" data-url="<?php echo e(route('admin.dashboard.statistik')); ?>">
         <div class="admin-statistics-header">
             <div class="admin-statistics-title">
                 <div class="admin-statistics-icon">
@@ -153,6 +153,13 @@
                             <button type="button" data-value="" class="active">
                                 Semua Kategori
                             </button>
+
+                            <?php $__currentLoopData = $kategoriList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kategori): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <button type="button" data-value="<?php echo e($kategori->id); ?>">
+                                    <?php echo e($kategori->nama_kategori); ?>
+
+                                </button>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
 class BukuImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
 {
-    public function collection(Collection $rows)
+    public function collection(Collection $rows): void
     {
         foreach ($rows as $index => $row) {
 

@@ -17,6 +17,7 @@ class PengajuanController extends Controller
         $query = Pengajuan::with([
             'user',
             'buku.kategori',
+            'detailPengajuan.buku.kategori',
         ]);
 
         if ($request->filled('status')) {
@@ -43,12 +44,70 @@ class PengajuanController extends Controller
             ->orderByDesc('tanggal_pengajuan')
             ->get();
 
+        $statusFilter = $request->status;
+
         return view(
             'admin.pengajuan.index',
-            compact('pengajuan')
+            compact('pengajuan', 'statusFilter')
         );
     }
 
+    // Mengembalikan stok seluruh buku dalam pengajuan.
+    // Dipanggil hanya saat status masih menunggu/siap.
+    private function kembalikanStok(Pengajuan $pengajuan)
+    {
+        $detail = $pengajuan->detailPengajuan()
+            ->orderBy('buku_id')
+            ->get();
+
+        if ($detail->isEmpty()) {
+            throw new Exception(
+                'Detail pengajuan tidak ditemukan.'
+            );
+        }
+
+        $bukuTerkunci = Buku::whereIn(
+            'id',
+            $detail->pluck('buku_id')->all()
+        )
+            ->orderBy('id')
+            ->lockForUpdate()
+            ->get()
+            ->keyBy('id');
+
+        foreach ($detail as $item) {
+            $buku = $bukuTerkunci->get($item->buku_id);
+
+            if (!$buku) {
+                throw new Exception(
+                    'Buku pada detail pengajuan tidak ditemukan.'
+                );
+            }
+
+            if ($item->jumlah < 1) {
+                throw new Exception(
+                    'Jumlah buku pada detail pengajuan tidak valid.'
+                );
+            }
+
+            if (
+                $buku->stok_tersedia + $item->jumlah >
+                $buku->total_stok
+            ) {
+                throw new Exception(
+                    'Pengembalian stok melebihi total stok buku: ' .
+                    $buku->judul
+                );
+            }
+
+            $buku->increment(
+                'stok_tersedia',
+                $item->jumlah
+            );
+        }
+    }
+
+    // Admin mengubah pengajuan menunggu menjadi siap.
     public function siap(Pengajuan $pengajuan)
     {
         try {
@@ -66,16 +125,11 @@ class PengajuanController extends Controller
                     );
                 }
 
-                $buku = Buku::where(
-                    'id',
-                    $pengajuan->buku_id
-                )
-                    ->lockForUpdate()
-                    ->firstOrFail();
-
-                if ($buku->stok_tersedia <= 0) {
+                if (
+                    !$pengajuan->detailPengajuan()->exists()
+                ) {
                     throw new Exception(
-                        'Stok buku sudah tidak tersedia.'
+                        'Detail buku pengajuan tidak ditemukan.'
                     );
                 }
 
@@ -86,17 +140,18 @@ class PengajuanController extends Controller
                     'tanggal_disiapkan' => $tanggalDisiapkan,
                     'batas_pengambilan' => $tanggalDisiapkan
                         ->copy()
-                        ->addDays(7),
+                        ->addDays(5),
                     'tanggal_diambil' => null,
                     'alasan_ditolak' => null,
                 ]);
 
-                $buku->decrement('stok_tersedia');
-            });
+                // Tidak mengurangi stok di sini.
+                // Stok sudah dikurangi saat member mengajukan.
+            }, 3);
 
             return back()->with(
                 'success',
-                'Pengajuan berhasil dikonfirmasi dan buku siap diambil.'
+                'Pengajuan berhasil dikonfirmasi. Buku siap diambil dalam 5 hari.'
             );
         } catch (Exception $e) {
             return back()->with(
@@ -106,6 +161,7 @@ class PengajuanController extends Controller
         }
     }
 
+    // Admin menolak pengajuan.
     public function tolak(
         Request $request,
         Pengajuan $pengajuan
@@ -130,22 +186,30 @@ class PengajuanController extends Controller
                     ->lockForUpdate()
                     ->firstOrFail();
 
-                if ($pengajuan->status !== 'menunggu') {
+                if (!in_array(
+                    $pengajuan->status,
+                    ['menunggu', 'siap'],
+                    true
+                )) {
                     throw new Exception(
-                        'Pengajuan ini sudah diproses sebelumnya.'
+                        'Pengajuan ini tidak dapat ditolak.'
                     );
                 }
 
+                // Kembalikan stok sebelum mengubah status.
+                $this->kembalikanStok($pengajuan);
+
                 $pengajuan->update([
                     'status' => 'ditolak',
-                    'alasan_ditolak' => $request->alasan_ditolak
+                    'alasan_ditolak' =>
+                        $request->input('alasan_ditolak')
                         ?: 'Pengajuan ditolak oleh admin.',
                 ]);
-            });
+            }, 3);
 
             return back()->with(
                 'success',
-                'Pengajuan berhasil ditolak.'
+                'Pengajuan berhasil ditolak dan stok buku dikembalikan.'
             );
         } catch (Exception $e) {
             return back()->with(
@@ -155,10 +219,11 @@ class PengajuanController extends Controller
         }
     }
 
+    // Admin mengonfirmasi buku benar-benar diambil.
     public function diambil(Pengajuan $pengajuan)
     {
         try {
-            DB::transaction(function () use ($pengajuan) {
+            $hasil = DB::transaction(function () use ($pengajuan) {
                 $pengajuan = Pengajuan::where(
                     'pengajuan_id',
                     $pengajuan->pengajuan_id
@@ -172,23 +237,53 @@ class PengajuanController extends Controller
                     );
                 }
 
+                // Jika melewati batas pengambilan,
+                // langsung tolak dan kembalikan stok.
                 if (
                     $pengajuan->batas_pengambilan &&
                     now()->greaterThan(
                         $pengajuan->batas_pengambilan
                     )
                 ) {
+                    $this->kembalikanStok($pengajuan);
+
+                    $pengajuan->update([
+                        'status' => 'ditolak',
+                        'alasan_ditolak' =>
+                            'Batas waktu pengambilan buku telah berakhir.',
+                    ]);
+
+                    return 'kedaluwarsa';
+                }
+
+                $detail = $pengajuan->detailPengajuan()
+                    ->orderBy('buku_id')
+                    ->get();
+
+                if ($detail->isEmpty()) {
                     throw new Exception(
-                        'Batas waktu pengambilan buku sudah berakhir.'
+                        'Detail pengajuan tidak ditemukan.'
+                    );
+                }
+
+                // Sementara tabel transaksi masih
+                // mendukung satu jenis dan satu
+                // eksemplar buku per transaksi.
+                if (
+                    $detail->count() !== 1 ||
+                    (int) $detail->first()->jumlah !== 1
+                ) {
+                    throw new Exception(
+                        'Pengajuan berisi beberapa buku atau eksemplar. ' .
+                        'Konfirmasi pengambilan belum dapat dilakukan ' .
+                        'sampai modul Peminjaman multi-buku selesai.'
                     );
                 }
 
                 $transaksiSudahAda = Transaksi::where(
                     'pengajuan_id',
                     $pengajuan->pengajuan_id
-                )
-                    ->lockForUpdate()
-                    ->exists();
+                )->exists();
 
                 if ($transaksiSudahAda) {
                     throw new Exception(
@@ -198,14 +293,11 @@ class PengajuanController extends Controller
 
                 $tanggalDiambil = now();
 
-                $pengajuan->update([
-                    'status' => 'disetujui',
-                    'tanggal_diambil' => $tanggalDiambil,
-                ]);
-
+                // Satu buku tetap dibuatkan
+                // transaksi lama secara normal.
                 Transaksi::create([
                     'user_id' => $pengajuan->user_id,
-                    'buku_id' => $pengajuan->buku_id,
+                    'buku_id' => $detail->first()->buku_id,
                     'pengajuan_id' => $pengajuan->pengajuan_id,
                     'tanggal_pinjam' => $tanggalDiambil,
                     'tanggal_jatuh_tempo' => $tanggalDiambil
@@ -214,11 +306,27 @@ class PengajuanController extends Controller
                     'tanggal_kembali' => null,
                     'status' => 'dipinjam',
                 ]);
-            });
+
+                $pengajuan->update([
+                    'status' => 'disetujui',
+                    'tanggal_diambil' => $tanggalDiambil,
+                ]);
+
+                // Stok tidak dikurangi lagi.
+                return 'berhasil';
+            }, 3);
+
+            if ($hasil === 'kedaluwarsa') {
+                return back()->with(
+                    'error',
+                    'Batas pengambilan telah berakhir. ' .
+                    'Pengajuan otomatis ditolak dan stok dikembalikan.'
+                );
+            }
 
             return back()->with(
                 'success',
-                'Buku berhasil diambil dan transaksi peminjaman otomatis dibuat.'
+                'Buku berhasil diambil dan transaksi peminjaman dibuat.'
             );
         } catch (Exception $e) {
             return back()->with(
